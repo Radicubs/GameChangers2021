@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class MecanumDriveTrain extends Command {
+public class MecanumDriver extends Command {
 
-    public MecanumDriveTrain() {
+    public MecanumDriver() {
         requires(Robot.driveTrain);
     }
 
