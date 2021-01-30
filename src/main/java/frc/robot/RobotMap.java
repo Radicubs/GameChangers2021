@@ -39,10 +39,10 @@ public class RobotMap {
   public static final int BOTTOM_BUTTON_FOUR = 5;
 
   // PWM MOTORS
-  public static final int LEFT_TALON = 6;
-  public static final int LEFT_FOLLOWER_ONE = 4;
+  public static final int LEFT_FALCON_FRONT = 6;
+  public static final int LEFT_FALCON_BACK = 4;
 
-  public static final int RIGHT_TALON = 7;
-  public static final int RIGHT_FOLLOWER_ONE = 5;
+  public static final int RIGHT_FALCON_FRONT = 7;
+  public static final int RIGHT_FALCON_BACK = 5;
 
 }
