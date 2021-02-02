@@ -45,6 +45,8 @@ public class DriveBase extends Subsystem {
 
     rightMotorFront.configFactoryDefault();
     rightMotorBack.configFactoryDefault();
+    leftMotorFront.configFactoryDefault();
+    leftMotorBack.configFactoryDefault();
     leftMotorFront.setNeutralMode(NeutralMode.Brake);
     leftMotorBack.setNeutralMode(NeutralMode.Brake);
     rightMotorFront.setNeutralMode(NeutralMode.Brake);
