@@ -27,7 +27,7 @@ public class RobotMap {
   public static final int START_BUTTON = 8;
   public static final int CLICK_LEFT_JOYSTICK = 9;
   public static final int CLICK_RIGHT_JOYSTICK = 10;
-  
+
   // BUTTON BOARD BUTTONS: 1 --> 4 GOES LEFT TO RIGHT
   public static final int TOP_BUTTON_ONE = 4;
   public static final int TOP_BUTTON_TWO = 3;
@@ -44,5 +44,4 @@ public class RobotMap {
 
   public static final int RIGHT_FALCON_FRONT = 7;
   public static final int RIGHT_FALCON_BACK = 5;
-
 }

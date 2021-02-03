@@ -3,15 +3,14 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Robot.*;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import frc.robot.Robot;
+import frc.robot.Robot.*;
+import frc.robot.RobotMap;
+import frc.robot.commands.*;
 
 public class DriveBase extends Subsystem {
 
@@ -78,14 +77,13 @@ public class DriveBase extends Subsystem {
   }
 
   public void drive() {
-    drive.driveCartesian(Robot.oi.controller.getX(), Robot.oi.controller.getY(), Robot.oi.controller.getZ(), 0);
+    drive.driveCartesian(
+        Robot.oi.controller.getX(), Robot.oi.controller.getY(), Robot.oi.controller.getZ(), 0);
     Timer.delay(0.01);
-
   }
 
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new MecanumDriver());
   }
-
 }
