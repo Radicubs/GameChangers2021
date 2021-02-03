@@ -18,7 +18,9 @@ public class MecanumDriver extends Command {
 
     @Override
     protected void execute() {
-        Robot.driveTrain.drive();
+        Robot.driveTrain.drive(Robot.oi.controller.getRawAxis(RobotMap.LEFT_X_AXIS), 
+            Robot.oi.controller.getRawAxis(RobotMap.LEFT_Y_AXIS), 
+            Robot.oi.controller.getRawAxis(RobotMap.RIGHT_X_AXIS));
     }
 
     @Override
