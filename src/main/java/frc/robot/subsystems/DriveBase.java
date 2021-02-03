@@ -47,17 +47,12 @@ public class DriveBase extends Subsystem {
     rightMotorBack.setNeutralMode(NeutralMode.Brake);
   }
 
-  public void drive(double x, double y, double turn) {
-    double angle = Math.atan(y/x);
-    double magnitude = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) / Math.sqrt(2);
+  public void drive(double speedRFLB, double speedRBLF) {
+    rightMotorFront.set(ControlMode.PercentOutput, speedRFLB);
+    leftMotorBack.set(ControlMode.PercentOutput, -speedRFLB);
 
-    double speedRBLF = -Math.sin(angle - (Math.PI / 4));
-    rightMotorBack.set(ControlMode.PercentOutput, speedRBLF * magnitude);
-    leftMotorFront.set(ControlMode.PercentOutput, speedRBLF * magnitude);
-
-    double speedRFLB = -Math.sin(angle + (Math.PI / 4));
-    rightMotorFront.set(ControlMode.PercentOutput, speedRFLB * magnitude);
-    leftMotorBack.set(ControlMode.PercentOutput, speedRFLB * magnitude);
+    rightMotorBack.set(ControlMode.PercentOutput, speedRBLF);
+    leftMotorFront.set(ControlMode.PercentOutput, -speedRBLF);
   }
 
   @Override
