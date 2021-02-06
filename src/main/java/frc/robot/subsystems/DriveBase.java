@@ -2,15 +2,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Timer;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import frc.robot.Robot;
 import frc.robot.Robot.*;
 import frc.robot.RobotMap;
 import frc.robot.commands.*;
@@ -26,7 +20,7 @@ public class DriveBase extends Subsystem {
   // Left Motors
   private WPI_TalonFX leftMotorFront;
   private WPI_TalonFX leftMotorBack;
-  //public final MecanumDrive drive;
+  // public final MecanumDrive drive;
 
   private SpeedControllerGroup rightFront, rightBack, leftFront, leftBack;
 
