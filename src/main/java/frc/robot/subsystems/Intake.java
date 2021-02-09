@@ -1,8 +1,9 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.RunIntake;
 
 public class Intake extends Subsystem {
   private CANSparkMax intakeMotor;
@@ -14,12 +15,11 @@ public class Intake extends Subsystem {
     intakeMotor = new CANSparkMax(1, MotorType.kBrushless);
 
     // Set Motors to default and neutral
-    intakeMotor.restoreFactoryDefault();
-    intakeMotor.setNeutralMode(NeutralMode.Brake);
+    intakeMotor.restoreFactoryDefaults();
   }
 
-  public void takeIn() {
-    intakeMotor.set(ControlMode.PercentOutput, this.speed);
+  public void takeIn(double speed) {
+    intakeMotor.set(speed);
   }
 
   @Override

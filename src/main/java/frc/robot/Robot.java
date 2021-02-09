@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.subsystems.DriveBase;
+import frc.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -16,6 +16,7 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   public static DriveBase driveTrain;
+  public static Intake intake;
   public static OI oi;
 
   @Override
@@ -25,6 +26,7 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putData("Auto choices", m_chooser);
 
     driveTrain = new DriveBase();
+    intake = new Intake();
     // Initialize OI Last
     oi = new OI();
   }
