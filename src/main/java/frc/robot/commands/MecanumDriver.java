@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class MecanumDriver extends Command {
 
@@ -15,12 +16,20 @@ public class MecanumDriver extends Command {
 
   @Override
   protected void execute() {
-    Robot.driveTrain.drive();
+    double x = Robot.oi.controller.getRawAxis(RobotMap.LEFT_X_AXIS);
+    double y = Robot.oi.controller.getRawAxis(RobotMap.LEFT_Y_AXIS);
+
+    double angle = Math.atan(y / x);
+    angle = angle == Double.NaN ? angle : 0;
+    double magnitude = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) / Math.sqrt(2);
+
+    double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
+    double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
+    Robot.driveTrain.drive(speedRFLB, speedRBLF);
   }
 
   @Override
   protected boolean isFinished() {
-    // TODO Auto-generated method stub
     return false;
   }
 }
