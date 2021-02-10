@@ -43,12 +43,12 @@ public class DriveBase extends Subsystem {
     rightMotorBack.setNeutralMode(NeutralMode.Brake);
   }
 
-  public void drive(double speedRFLB, double speedRBLF) {
-    rightMotorFront.set(ControlMode.PercentOutput, speedRFLB);
-    leftMotorBack.set(ControlMode.PercentOutput, -speedRFLB);
+  public void drive(double speedRF, double speedRB, double speedLF, double speedLB) {
+    rightMotorFront.set(ControlMode.PercentOutput, speedRF);
+    rightMotorBack.set(ControlMode.PercentOutput, speedRB);
 
-    rightMotorBack.set(ControlMode.PercentOutput, speedRBLF);
-    leftMotorFront.set(ControlMode.PercentOutput, -speedRBLF);
+    leftMotorFront.set(ControlMode.PercentOutput, speedLF);
+    leftMotorBack.set(ControlMode.PercentOutput, speedLB);
   }
 
   @Override
