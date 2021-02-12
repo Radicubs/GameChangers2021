@@ -25,7 +25,8 @@ public class MecanumDriver extends Command {
 
     double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
     double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
-    Robot.driveTrain.drive(speedRFLB, speedRBLF, -speedRBLF, -speedRFLB);
+    System.out.println(speedRBLF + ", " + speedRFLB);
+    Robot.driveTrain.drive(-speedRFLB, speedRBLF, -speedRBLF, speedRFLB);
   }
 
   @Override
