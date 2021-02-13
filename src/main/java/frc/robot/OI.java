@@ -14,7 +14,5 @@ public class OI {
   public OI() {
     aButton.whenPressed(new DriveMode());
     xButton.whenPressed(new IntakeState());
-    ;
-
   }
 }
