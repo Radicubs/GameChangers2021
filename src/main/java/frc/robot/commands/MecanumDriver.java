@@ -25,14 +25,11 @@ public class MecanumDriver extends Command {
     double magnitude = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
     magnitude = magnitude < 1 ? magnitude : 1;
 
-    double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude + turn;
-    double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude + turn;
+    double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
+    double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
 
-    double normalizeFactor = Math.max(Math.abs(speedRBLF), Math.abs(speedRFLB));
-    speedRBLF /= normalizeFactor;
-    speedRFLB /= normalizeFactor;
-
-    Robot.driveTrain.drive(speedRFLB, -speedRBLF, speedRBLF, -speedRFLB);
+    Robot.driveTrain.drive(
+        speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn, -speedRFLB + turn);
   }
 
   @Override

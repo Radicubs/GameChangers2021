@@ -39,10 +39,10 @@ public class DriveBase extends Subsystem {
     rightMotorBack.configFactoryDefault();
     leftMotorFront.configFactoryDefault();
     leftMotorBack.configFactoryDefault();
-    leftMotorFront.setNeutralMode(NeutralMode.Coast);
-    leftMotorBack.setNeutralMode(NeutralMode.Coast);
-    rightMotorFront.setNeutralMode(NeutralMode.Coast);
-    rightMotorBack.setNeutralMode(NeutralMode.Coast);
+    leftMotorFront.setNeutralMode(NeutralMode.Brake);
+    leftMotorBack.setNeutralMode(NeutralMode.Brake);
+    rightMotorFront.setNeutralMode(NeutralMode.Brake);
+    rightMotorBack.setNeutralMode(NeutralMode.Brake);
   }
 
   public void drive(double speedRF, double speedRB, double speedLF, double speedLB) {
