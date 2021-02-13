@@ -18,14 +18,15 @@ public class MecanumDriver extends Command {
   protected void execute() {
     double y = Robot.oi.controller.getRawAxis(RobotMap.LEFT_Y_AXIS);
     double x = Robot.oi.controller.getRawAxis(RobotMap.LEFT_X_AXIS);
+    double turn = Robot.oi.controller.getRawAxis(RobotMap.RIGHT_X_AXIS);
 
     double angle = Math.atan2(x, y);
     angle = angle != Double.NaN ? angle : 0;
     double magnitude = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
     magnitude = magnitude < 1 ? magnitude : 1;
 
-    double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude = turn;
-    double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude = turn;
+    double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude + turn;
+    double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude + turn;
 
     double normalizeFactor = Math.max(Math.abs(speedRBLF), Math.abs(speedRFLB));
     speedRBLF /= normalizeFactor;
