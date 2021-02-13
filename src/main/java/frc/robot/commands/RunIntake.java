@@ -7,7 +7,7 @@ import frc.robot.Robot;
 public class RunIntake extends Command {
 
   private static double speed;
-  private static double intakeState = 1.0;
+  private static double intakeState = 0.0;
   private static String dashboardState = "ON";
 
   public RunIntake(double speed) {
@@ -39,7 +39,8 @@ public class RunIntake extends Command {
   }
 
   @Override
-  protected void end() {}
+  protected void end() {
+  }
 
   @Override
   protected void interrupted() {

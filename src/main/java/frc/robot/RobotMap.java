@@ -38,10 +38,18 @@ public class RobotMap {
   public static final int BOTTOM_BUTTON_THREE = 6;
   public static final int BOTTOM_BUTTON_FOUR = 5;
 
-  // PWM MOTORS
+  // FALCON FX MOTOR CONTROLLERS
   public static final int LEFT_FALCON_FRONT = 2;
   public static final int LEFT_FALCON_BACK = 4;
 
   public static final int RIGHT_FALCON_FRONT = 3;
   public static final int RIGHT_FALCON_BACK = 5;
+
+  // SPARK MAX MOTOR CONTROLLERS
+  public static final int SPARK_7 = 7;
+  public static final int SPARK_8 = 8;
+  public static final int SPARK_9 = 9;
+  public static final int SPARK_10 = 10;
+  public static final int SPARK_11 = 11;
+
 }

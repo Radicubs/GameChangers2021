@@ -6,19 +6,25 @@ import frc.robot.RobotMap;
 
 public class MecanumDriver extends Command {
 
+  private static double driveMode = 0.5;
+
   public MecanumDriver() {
     requires(Robot.driveTrain);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {}
+  protected void initialize() {
+  }
 
   @Override
   protected void execute() {
     double y = Robot.oi.controller.getRawAxis(RobotMap.LEFT_Y_AXIS);
     double x = Robot.oi.controller.getRawAxis(RobotMap.LEFT_X_AXIS);
     double turn = Robot.oi.controller.getRawAxis(RobotMap.RIGHT_X_AXIS);
+    y *= driveMode;
+    x *= driveMode;
+    turn *= driveMode;
 
     double angle = Math.atan2(x, y);
     angle = angle != Double.NaN ? angle : 0;
@@ -28,8 +34,15 @@ public class MecanumDriver extends Command {
     double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
     double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
 
-    Robot.driveTrain.drive(
-        speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn, -speedRFLB + turn);
+    Robot.driveTrain.drive(speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn, -speedRFLB + turn);
+  }
+
+  public static void changeDriveMode() {
+    if (driveMode == 0.5) {
+      driveMode = 1;
+    } else {
+      driveMode = 0.5;
+    }
   }
 
   @Override

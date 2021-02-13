@@ -7,12 +7,12 @@ import frc.robot.commands.RunIntake;
 
 public class Intake extends Subsystem {
   private CANSparkMax intakeMotor;
-  private double speed = 0.275;
+  private double speed = 0.8;
 
   public Intake() {
 
     // constructor
-    intakeMotor = new CANSparkMax(1, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(9, MotorType.kBrushless);
 
     // Set Motors to default and neutral
     intakeMotor.restoreFactoryDefaults();
