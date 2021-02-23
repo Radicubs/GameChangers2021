@@ -52,4 +52,9 @@ public class RobotMap {
   public static final int SPARK_10 = 10;
   public static final int SPARK_11 = 11;
 
+  // PNEUMATICS
+  public static final int COMPRESSOR = 20;
+  public static final int LEFT_SOLENOID = 21;
+  public static final int RIGHT_SOLENOID = 22;
+
 }
