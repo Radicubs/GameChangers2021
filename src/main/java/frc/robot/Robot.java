@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private static final String kDefaultAuto = "AutoNav";
+  private static final String kCustomAuto = "Galactic Search Challenge";
+  private String autoSelected;
+  private final SendableChooser<String> chooser = new SendableChooser<>();
 
   public static DriveBase driveTrain;
   public static Intake intake;
@@ -36,15 +36,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    autoSelected = chooser.getSelected();
+    System.out.println("Auto selected: " + autoSelected);
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
+    switch (autoSelected) {
       case kCustomAuto:
         // Put custom auto code here
         break;
@@ -79,5 +78,8 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    System.out.println(oi.controller.getRawAxis(RobotMap.RIGHT_X_AXIS));
+    System.out.println(oi.controller.getRawAxis(RobotMap.RIGHT_Y_AXIS));
+  }
 }
