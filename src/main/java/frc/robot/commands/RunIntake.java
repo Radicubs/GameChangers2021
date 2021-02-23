@@ -39,8 +39,7 @@ public class RunIntake extends Command {
   }
 
   @Override
-  protected void end() {
-  }
+  protected void end() {}
 
   @Override
   protected void interrupted() {
