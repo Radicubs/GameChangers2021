@@ -50,12 +50,11 @@ public class DriveBase extends Subsystem {
     leftMotorBack.configFactoryDefault();
 
     // Might interfere with PID
-    /*
+
     leftMotorFront.setNeutralMode(NeutralMode.Brake);
     leftMotorBack.setNeutralMode(NeutralMode.Brake);
     rightMotorFront.setNeutralMode(NeutralMode.Brake);
     rightMotorBack.setNeutralMode(NeutralMode.Brake);
-    */
 
     rightMotorFront.config_kP(0, pValue);
     rightMotorFront.config_kI(0, iValue);
@@ -78,7 +77,7 @@ public class DriveBase extends Subsystem {
     rightMotorFront.configMaxIntegralAccumulator(0, maxIntegralAccumulator);
     leftMotorFront.configMaxIntegralAccumulator(0, maxIntegralAccumulator);
     leftMotorBack.configMaxIntegralAccumulator(0, maxIntegralAccumulator);
-    
+
     rightMotorBack.configAllowableClosedloopError(0, 0);
     rightMotorFront.configAllowableClosedloopError(0, 0);
     leftMotorFront.configAllowableClosedloopError(0, 0);
