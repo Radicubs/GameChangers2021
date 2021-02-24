@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 import frc.robot.commands.RunIntake;
 
 public class Intake extends Subsystem {
@@ -12,7 +13,7 @@ public class Intake extends Subsystem {
   public Intake() {
 
     // constructor
-    intakeMotor = new CANSparkMax(9, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(RobotMap.SPARK_9, MotorType.kBrushless);
 
     // Set Motors to default and neutral
     intakeMotor.restoreFactoryDefaults();

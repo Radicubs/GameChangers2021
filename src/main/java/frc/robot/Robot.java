@@ -10,14 +10,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
+import frc.robot.commands.auto.*;
 
 public class Robot extends TimedRobot {
-  <<<<<<<HEAD
-  private static final String kDefaultAuto = "AutoNav";
-  private static final String kCustomAuto = "Galactic Search Challenge";
-  private String autoSelected;
-  private final SendableChooser<String> chooser = new SendableChooser<>();=======>>>>>>>sendablechooser
-
   public static DriveBase driveTrain;
   public static Intake intake;
   public static OI oi;
@@ -63,7 +58,7 @@ public class Robot extends TimedRobot {
     if (autonomous != null) {
       autonomous.start();
     }
-    // middleAuto.start();
+
   }
 
   /** This function is called periodically during autonomous. */

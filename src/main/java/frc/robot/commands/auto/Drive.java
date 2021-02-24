@@ -10,12 +10,13 @@ public class Drive extends Command {
     public Drive(double angle, double magnitude, double turn) {
         requires(Robot.driveTrain);
         this.angle = angle;
-        this.magnitude = magnitude;
+        this.magnitude = -magnitude;
         this.turn = turn;
     }
-    
+
     @Override
-    public void initialize() { }
+    public void initialize() {
+    }
 
     @Override
     public boolean isFinished() {
@@ -24,14 +25,15 @@ public class Drive extends Command {
 
     @Override
     public void execute() {
-      double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
-      double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
+        double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
+        double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
 
-      Robot.driveTrain.drive(speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn, -speedRFLB + turn);
+        Robot.driveTrain.drive(speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn, -speedRFLB + turn);
     }
 
     @Override
-    public void end() { }
+    public void end() {
+    }
 
     @Override
     public void interrupted() {

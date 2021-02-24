@@ -5,10 +5,10 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class AutoNavA extends CommandGroup {
-    private final double speed = 0.25;
+public class AutoNavB extends CommandGroup {
+    private final double speed = 0.4;
 
-    public AutoNavA() {
+    public AutoNavB() {
         requires(Robot.driveTrain);
         addSequential(new Drive(Math.PI / 2, speed, 0), 1);
         addSequential(new Drive(0, speed, 0), 1);
