@@ -5,25 +5,36 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
+  <<<<<<<HEAD
   private static final String kDefaultAuto = "AutoNav";
   private static final String kCustomAuto = "Galactic Search Challenge";
   private String autoSelected;
-  private final SendableChooser<String> chooser = new SendableChooser<>();
+  private final SendableChooser<String> chooser = new SendableChooser<>();=======>>>>>>>sendablechooser
 
   public static DriveBase driveTrain;
   public static Intake intake;
   public static OI oi;
 
+  private String autoSelected;;
+  private final SendableChooser<String> autoChooser = new SendableChooser<>();
+  private static final String autoNavA = "AutoNav A";
+  private static final String autoNavB = "AutoNav B";
+
+  private Command autonomous;
+
   @Override
   public void robotInit() {
-    // m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    // m_chooser.addOption("My Auto", kCustomAuto);
-    // SmartDashboard.putData("Auto choices", m_chooser);
+    autoChooser.setDefaultOption("AutoNav A", autoNavA);
+    autoChooser.addOption("AutoNav B", autoNavB);
+    SmartDashboard.putData("Auto Choices", autoChooser);
+    SmartDashboard.updateValues();
 
     driveTrain = new DriveBase();
     intake = new Intake();
@@ -32,31 +43,47 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+  }
 
   @Override
   public void autonomousInit() {
-    autoSelected = chooser.getSelected();
+    autoSelected = (String) autoChooser.getSelected();
     System.out.println("Auto selected: " + autoSelected);
+    switch (autoSelected) {
+      case autoNavA:
+        autonomous = new AutoNavA();
+        break;
+      case autoNavB:
+        autonomous = new AutoNavB();
+        break;
+      default:
+        break;
+    }
+    if (autonomous != null) {
+      autonomous.start();
+    }
+    // middleAuto.start();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    switch (autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
+    // switch (m_autoSelected) {
+    // case kCustomAuto:
+    // // Put custom auto code here
+    // break;
+    // case kDefaultAuto:
+    // default:
+    // // Put default auto code here
+    // break;
+    // }
   }
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+  }
 
   /** This function is called periodically during operator control. */
   @Override
@@ -66,15 +93,18 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
   /** This function is called periodically when disabled. */
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
   /** This function is called once when test mode is enabled. */
   @Override
-  public void testInit() {}
+  public void testInit() {
+  }
 
   /** This function is called periodically during test mode. */
   @Override
