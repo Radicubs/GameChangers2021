@@ -1,6 +1,7 @@
 package frc.robot.commands.auto;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -9,15 +10,39 @@ import frc.robot.util.CoordinatePair;
 public class MecanumAuto extends Command {
 
     private Queue<CoordinatePair> points;
+    private final int POINT_COUNT = 10000;
+    private String path;
 
-    public MecanumAuto() {
+    public MecanumAuto(String path) {
         requires(Robot.driveTrain);
-        points = new LinkedList<CoordinatePair>();
+        this.path = path;
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        points = getPoints();
+    }
+
+    private LinkedList<CoordinatePair> getPoints() {
+
+        List<CoordinatePair> list = new LinkedList<CoordinatePair>();
+        for (int t = 0; t < POINT_COUNT; t++) {
+            list.add(getFunctionVal(t));
+        }
+        return (LinkedList<CoordinatePair>) list;
+    }
+
+    private CoordinatePair getFunctionVal(int t) {
+        // insert function code here
+        if (this.path == "AutoNavA") {
+        } else if (this.path == "AutoNavB") {
+        } else if (this.path == "AutoNavC") {
+        }
+
+        int x = 0;
+        int y = 0;
+        return new CoordinatePair(x, y);
     }
 
     @Override
@@ -43,6 +68,6 @@ public class MecanumAuto extends Command {
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return points.isEmpty();
     }
 }
