@@ -55,6 +55,7 @@ public class Robot extends TimedRobot {
       default:
         break;
     }
+    autonomous = new MecanumAuto("AutoNavA");
     if (autonomous != null) {
       autonomous.start();
     }

@@ -3,6 +3,8 @@ package frc.robot.commands.auto;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.util.CoordinatePair;
@@ -12,7 +14,7 @@ public class MecanumAuto extends Command {
     private Queue<CoordinatePair> points;
     private CoordinatePair previousPair;
     private CoordinatePair currentPair;
-    private final double POINT_COUNT = 10000.0;
+    private final double POINT_COUNT = 1000.0;
     private String path;
 
     public MecanumAuto(String path) {
@@ -26,13 +28,13 @@ public class MecanumAuto extends Command {
         points = getPoints();
     }
 
-    private LinkedList<CoordinatePair> getPoints() {
+    private Queue<CoordinatePair> getPoints() {
 
-        List<CoordinatePair> list = new LinkedList<CoordinatePair>();
+        Queue<CoordinatePair> list = new LinkedList<CoordinatePair>();
         for (double t = 0; t < 1; t += 1.0 / POINT_COUNT) {
             list.add(getFunctionVal(t));
         }
-        return (LinkedList<CoordinatePair>) list;
+        return (Queue<CoordinatePair>) list;
     }
 
     private CoordinatePair getFunctionVal(double t) {
@@ -59,12 +61,14 @@ public class MecanumAuto extends Command {
                                 + t * ((1 - t) * navACp3.getY() + t * navACp4.getY())));
                 break;
             case "AutoNavB":
+                x = t;
+                y = t;
                 break;
             case "AutoNavC":
                 break;
 
         }
-        return new CoordinatePair(x, y);
+        return new CoordinatePair(x, -y);
     }
 
     @Override
@@ -75,6 +79,7 @@ public class MecanumAuto extends Command {
             if (previousPair == null) {
                 previousPair = points.remove();
             }
+            System.out.println(currentPair);
 
             double x = currentPair.getX() - previousPair.getY();
             double y = (currentPair.getY() - previousPair.getY());
@@ -85,7 +90,7 @@ public class MecanumAuto extends Command {
             x = Math.cos(angle);
             y = Math.sin(angle);
 
-            double magnitude = 1;
+            double magnitude = 0.3;
 
             double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
             double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
