@@ -10,6 +10,8 @@ import frc.robot.util.CoordinatePair;
 public class MecanumAuto extends Command {
 
     private Queue<CoordinatePair> points;
+    private CoordinatePair previousPair;
+    private CoordinatePair currentPair;
     private final int POINT_COUNT = 10000;
     private String path;
 
@@ -35,11 +37,15 @@ public class MecanumAuto extends Command {
 
     private CoordinatePair getFunctionVal(int t) {
         // insert function code here
-        if (this.path == "AutoNavA") {
-        } else if (this.path == "AutoNavB") {
-        } else if (this.path == "AutoNavC") {
-        }
+        switch (this.path) {
+            case "AutoNavA":
+                break;
+            case "AutoNavB":
+                break;
+            case "AutoNavC":
+                break;
 
+        }
         int x = 0;
         int y = 0;
         return new CoordinatePair(x, y);
@@ -48,19 +54,32 @@ public class MecanumAuto extends Command {
     @Override
     protected void execute() {
         try {
-            double y = points.peek().getY();
-            double x = points.remove().getX();
+            // double originalY = points.peek().getY();
+            // double originalX = points.remove().getX();
+            currentPair = points.remove();
             double turn = 0;
+            if (previousPair == null) {
+                previousPair = points.remove();
+            }
 
+            double x = currentPair.getX() - previousPair.getY();
+            double y = (currentPair.getY() - previousPair.getY());
             double angle = Math.atan2(x, y);
             angle = angle != Double.NaN ? angle : 0;
-            double magnitude = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
-            magnitude = magnitude < 1 ? magnitude : 1;
+
+            // Normalize Values
+            x = Math.cos(angle);
+            y = Math.sin(angle);
+
+            // double magnitude = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
+            double magnitude = 1;
 
             double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
             double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
 
             Robot.driveTrain.drive(speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn, -speedRFLB + turn);
+
+            previousPair = currentPair;
         } catch (Exception e) {
             System.out.println("Got exception: " + e);
         }
