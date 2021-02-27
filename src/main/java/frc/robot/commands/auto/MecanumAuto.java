@@ -12,7 +12,7 @@ public class MecanumAuto extends Command {
     private Queue<CoordinatePair> points;
     private CoordinatePair previousPair;
     private CoordinatePair currentPair;
-    private final int POINT_COUNT = 10000;
+    private final double POINT_COUNT = 10000.0;
     private String path;
 
     public MecanumAuto(String path) {
@@ -29,16 +29,34 @@ public class MecanumAuto extends Command {
     private LinkedList<CoordinatePair> getPoints() {
 
         List<CoordinatePair> list = new LinkedList<CoordinatePair>();
-        for (int t = 0; t < POINT_COUNT; t++) {
+        for (double t = 0; t < 1; t += 1.0 / POINT_COUNT) {
             list.add(getFunctionVal(t));
         }
         return (LinkedList<CoordinatePair>) list;
     }
 
-    private CoordinatePair getFunctionVal(int t) {
-        // insert function code here
+    private CoordinatePair getFunctionVal(double t) {
+        double x = 0;
+        double y = 0;
+
         switch (this.path) {
             case "AutoNavA":
+                // Control Points for Bezier Curve
+                CoordinatePair navACp1 = new CoordinatePair(4, 0);
+                CoordinatePair navACp2 = new CoordinatePair(5, 4);
+                CoordinatePair navACp3 = new CoordinatePair(0, 2);
+                CoordinatePair navACp4 = new CoordinatePair(2, 6);
+                x = ((1 - t)
+                        * ((1 - t) * ((1 - t) * navACp1.getX() + t * navACp2.getX())
+                                + t * ((1 - t) * navACp2.getX() + t * navACp3.getX()))
+                        + t * ((1 - t) * ((1 - t) * navACp2.getX() + t * navACp3.getX())
+                                + t * ((1 - t) * navACp3.getX() + t * navACp4.getX())));
+
+                y = ((1 - t)
+                        * ((1 - t) * ((1 - t) * navACp1.getY() + t * navACp2.getY())
+                                + t * ((1 - t) * navACp2.getY() + t * navACp3.getY()))
+                        + t * ((1 - t) * ((1 - t) * navACp2.getY() + t * navACp3.getY())
+                                + t * ((1 - t) * navACp3.getY() + t * navACp4.getY())));
                 break;
             case "AutoNavB":
                 break;
@@ -46,16 +64,12 @@ public class MecanumAuto extends Command {
                 break;
 
         }
-        int x = 0;
-        int y = 0;
         return new CoordinatePair(x, y);
     }
 
     @Override
     protected void execute() {
         try {
-            // double originalY = points.peek().getY();
-            // double originalX = points.remove().getX();
             currentPair = points.remove();
             double turn = 0;
             if (previousPair == null) {
@@ -71,7 +85,6 @@ public class MecanumAuto extends Command {
             x = Math.cos(angle);
             y = Math.sin(angle);
 
-            // double magnitude = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
             double magnitude = 1;
 
             double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
