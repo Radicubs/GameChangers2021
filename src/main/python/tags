@@ -9,3 +9,6 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210110.0/
+camera	/home/dchanana/Projects/GameChangers2021/src/main/python/vision.py	/^camera = cv2.VideoCapture("\/dev\/video2")$/;"	v	access:public
+np	/home/dchanana/Projects/GameChangers2021/src/main/python/vision.py	/^import numpy as np$/;"	I	access:public	nameref:module:numpy
+test	/home/dchanana/Projects/GameChangers2021/src/main/python/vision.py	/^def test():$/;"	f	access:public	signature:()
