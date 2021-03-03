@@ -14,7 +14,7 @@ public class MecanumAuto extends Command {
     private Queue<CoordinatePair> points;
     private CoordinatePair previousPair;
     private CoordinatePair currentPair;
-    private final double POINT_COUNT = 1000.0;
+    private final double POINT_COUNT = 350.0;
     private String path;
 
     public MecanumAuto(String path) {
@@ -44,10 +44,10 @@ public class MecanumAuto extends Command {
         switch (this.path) {
             case "AutoNavA":
                 // Control Points for Bezier Curve
-                CoordinatePair navACp1 = new CoordinatePair(4, 0);
-                CoordinatePair navACp2 = new CoordinatePair(5, 4);
-                CoordinatePair navACp3 = new CoordinatePair(0, 2);
-                CoordinatePair navACp4 = new CoordinatePair(2, 6);
+                CoordinatePair navACp1 = new CoordinatePair(0.08, -0.2);
+                CoordinatePair navACp2 = new CoordinatePair(18.57, 10.05);
+                CoordinatePair navACp3 = new CoordinatePair(-6.28, -9.12);
+                CoordinatePair navACp4 = new CoordinatePair(13.94, -1.32);
                 x = ((1 - t)
                         * ((1 - t) * ((1 - t) * navACp1.getX() + t * navACp2.getX())
                                 + t * ((1 - t) * navACp2.getX() + t * navACp3.getX()))
@@ -68,6 +68,8 @@ public class MecanumAuto extends Command {
                 break;
 
         }
+        System.out.println("t: " + t);
+        y *= 1.37;
         return new CoordinatePair(x, -y);
     }
 
@@ -81,7 +83,7 @@ public class MecanumAuto extends Command {
             }
             System.out.println(currentPair);
 
-            double x = currentPair.getX() - previousPair.getY();
+            double x = currentPair.getX() - previousPair.getX();
             double y = (currentPair.getY() - previousPair.getY());
             double angle = Math.atan2(x, y);
             angle = angle != Double.NaN ? angle : 0;
