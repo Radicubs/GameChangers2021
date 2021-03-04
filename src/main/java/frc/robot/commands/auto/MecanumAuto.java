@@ -15,7 +15,7 @@ public class MecanumAuto extends Command {
     private CoordinatePair previousPair;
     private CoordinatePair currentPair;
     private final double POINT_COUNT = 350.0;
-    private final double STRETCH_FACTOR = 3.0;
+    private final double STRETCH_FACTOR = 1;
     private String path;
 
     public MecanumAuto(String path) {
@@ -70,7 +70,7 @@ public class MecanumAuto extends Command {
 
         }
         System.out.println("t: " + t);
-        return new CoordinatePair(x, -y);
+        return new CoordinatePair(x, y);
     }
 
     @Override
