@@ -15,6 +15,7 @@ public class MecanumAuto extends Command {
     private CoordinatePair previousPair;
     private CoordinatePair currentPair;
     private final double POINT_COUNT = 350.0;
+    private final double STRETCH_FACTOR = 3.0;
     private String path;
 
     public MecanumAuto(String path) {
@@ -44,10 +45,10 @@ public class MecanumAuto extends Command {
         switch (this.path) {
             case "AutoNavA":
                 // Control Points for Bezier Curve
-                CoordinatePair navACp1 = new CoordinatePair(0.08, -0.2);
-                CoordinatePair navACp2 = new CoordinatePair(18.57, 10.05);
-                CoordinatePair navACp3 = new CoordinatePair(-6.28, -9.12);
-                CoordinatePair navACp4 = new CoordinatePair(13.94, -1.32);
+                CoordinatePair navACp1 = new CoordinatePair(0.08, -0.2 / STRETCH_FACTOR);
+                CoordinatePair navACp2 = new CoordinatePair(18.57, 10.05 / STRETCH_FACTOR);
+                CoordinatePair navACp3 = new CoordinatePair(-6.28, -9.12 / STRETCH_FACTOR);
+                CoordinatePair navACp4 = new CoordinatePair(13.94, -1.32 / STRETCH_FACTOR);
                 x = ((1 - t)
                         * ((1 - t) * ((1 - t) * navACp1.getX() + t * navACp2.getX())
                                 + t * ((1 - t) * navACp2.getX() + t * navACp3.getX()))
@@ -69,7 +70,6 @@ public class MecanumAuto extends Command {
 
         }
         System.out.println("t: " + t);
-        y *= 1.37;
         return new CoordinatePair(x, -y);
     }
 
