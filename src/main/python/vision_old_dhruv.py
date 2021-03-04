@@ -8,8 +8,8 @@ def test():
     while True:
         ret, img = camera.read()
 
-        yellowLower = (20, 60, 0)
-        yellowUpper = (60, 255, 255)
+        yellowLower = (0, 0, 0)
+        yellowUpper = (255, 255, 255)
 
         img = imutils.resize(img, width=600)
         blurred = cv2.GaussianBlur(img, (11, 11), 0)
@@ -33,6 +33,6 @@ def test():
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-camera = cv2.VideoCapture("/dev/video2")
+camera = cv2.VideoCapture(0)
 if __name__ == "__main__":
     test()
