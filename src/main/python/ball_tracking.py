@@ -10,6 +10,7 @@ import argparse
 import cv2
 import imutils
 import time
+import math
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -67,7 +68,7 @@ while True:
 	# find contours in the mask and initialize the current
 	# (x, y) center of the ball
 	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
-		cv2.CHAIN_APPROX_SIMPLE)
+		cv2.CHAIN_APPROX_NONE)
 	cnts = imutils.grab_contours(cnts)
 	center = None
 
@@ -76,19 +77,42 @@ while True:
 		# find the largest contour in the mask, then use
 		# it to compute the minimum enclosing circle and
 		# centroid
-		c = max(cnts, key=cv2.contourArea)
-		((x, y), radius) = cv2.minEnclosingCircle(c)
-		M = cv2.moments(c)
-		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-		# only proceed if the radius meets a minimum size
-		if radius > 10:
-			# draw the circle and centroid on the frame,
-			# then update the list of tracked points
-			cv2.circle(frame, (int(x), int(y)), int(radius),
-				(0, 255, 255), 2)
-			cv2.circle(frame, center, 5, (0, 0, 255), -1)
+		c = None
+		# check if its actually a circle
+		c_found = False
+		cnts.sort(key=cv2.contourArea)
+		while not c_found and len(cnts) > 0:
+			distances = []
+			c = cnts.pop(0)
+			((x, y), radius) = cv2.minEnclosingCircle(c)
+			if radius > 10:
+				for p in c:
+					cv2.circle(frame, (p[0][0], p[0][1]), 5, (255, 0, 0))
+					distance_from_center = math.sqrt((x-p[0][0])**2 + (y-p[0][1])**2)
+					distances.append(abs(radius - distance_from_center))
+				distances = np.array(distances)
+				if distances.std() < 5 and distances.mean() < 5:
+					c_found = True
+				print("std")
+				print(distances.std())
+				print("mean")
+				print(np.array(distances).mean())
 
+		if c_found:
+			((x, y), radius) = cv2.minEnclosingCircle(c)
+
+			M = cv2.moments(c)
+			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+
+			# only proceed if the radius meets a minimum size
+			if radius > 10:
+				# draw the circle and centroid on the frame,
+				# then update the list of tracked points
+				cv2.circle(frame, (int(x), int(y)), int(radius),
+					(0, 255, 255), 2)
+				cv2.circle(frame, center, 5, (0, 0, 255), -1)
+			
 	# update the points queue
 	pts.appendleft(center)
 
