@@ -7,6 +7,8 @@ import java.util.Stack;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.util.BezierFunction;
+import frc.robot.util.BezierPoint;
 import frc.robot.util.CoordinatePair;
 
 public class MecanumAuto extends Command {
@@ -45,21 +47,32 @@ public class MecanumAuto extends Command {
         switch (this.path) {
             case "AutoNavA":
                 // Control Points for Bezier Curve
-                CoordinatePair navACp1 = new CoordinatePair(0.08, -0.2 / STRETCH_FACTOR);
-                CoordinatePair navACp2 = new CoordinatePair(18.57, 10.05 / STRETCH_FACTOR);
-                CoordinatePair navACp3 = new CoordinatePair(-6.28, -9.12 / STRETCH_FACTOR);
-                CoordinatePair navACp4 = new CoordinatePair(13.94, -1.32 / STRETCH_FACTOR);
-                x = ((1 - t)
-                        * ((1 - t) * ((1 - t) * navACp1.getX() + t * navACp2.getX())
-                                + t * ((1 - t) * navACp2.getX() + t * navACp3.getX()))
-                        + t * ((1 - t) * ((1 - t) * navACp2.getX() + t * navACp3.getX())
-                                + t * ((1 - t) * navACp3.getX() + t * navACp4.getX())));
+                // CoordinatePair navACp1 = new CoordinatePair(0.08, -0.2 / STRETCH_FACTOR);
+                // CoordinatePair navACp2 = new CoordinatePair(18.57, 10.05 / STRETCH_FACTOR);
+                // CoordinatePair navACp3 = new CoordinatePair(-6.28, -9.12 / STRETCH_FACTOR);
+                // CoordinatePair navACp4 = new CoordinatePair(13.94, -1.32 / STRETCH_FACTOR);
 
-                y = ((1 - t)
-                        * ((1 - t) * ((1 - t) * navACp1.getY() + t * navACp2.getY())
-                                + t * ((1 - t) * navACp2.getY() + t * navACp3.getY()))
-                        + t * ((1 - t) * ((1 - t) * navACp2.getY() + t * navACp3.getY())
-                                + t * ((1 - t) * navACp3.getY() + t * navACp4.getY())));
+                // x = ((1 - t)
+                // * ((1 - t) * ((1 - t) * navACp1.getX() + t * navACp2.getX())
+                // + t * ((1 - t) * navACp2.getX() + t * navACp3.getX()))
+                // + t * ((1 - t) * ((1 - t) * navACp2.getX() + t * navACp3.getX())
+                // + t * ((1 - t) * navACp3.getX() + t * navACp4.getX())));
+
+                // y = ((1 - t)
+                // * ((1 - t) * ((1 - t) * navACp1.getY() + t * navACp2.getY())
+                // + t * ((1 - t) * navACp2.getY() + t * navACp3.getY()))
+                // + t * ((1 - t) * ((1 - t) * navACp2.getY() + t * navACp3.getY())
+                // + t * ((1 - t) * navACp3.getY() + t * navACp4.getY())));
+
+                BezierPoint navACp1 = new BezierPoint(0.08, -0.2);
+                BezierPoint navACp2 = new BezierPoint(18.57, 10.05);
+                BezierPoint navACp3 = new BezierPoint(-6.28, -9.12);
+                BezierPoint navACp4 = new BezierPoint(13.94, -1.32);
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4 };
+
+                BezierFunction function = new BezierFunction(pointsArr);
+                x = function.getPos(t).getX();
+                y = function.getPos(t).getY();
                 break;
             case "AutoNavB":
                 x = t;
