@@ -3,7 +3,6 @@
 # python ball_tracking.py
 
 # import the necessary packages
-from collections import deque
 from imutils.video import VideoStream
 import numpy as np
 import argparse
@@ -27,12 +26,11 @@ args = vars(ap.parse_args())
 # exposure values: 1, 20
 yellowLower = (20, 100, 100)
 yellowUpper = (30, 255, 255)
-pts = deque(maxlen=args["buffer"])
 
 # if a video path was not supplied, grab the reference
 # to the webcam
 if not args.get("video", False):
-	vs = VideoStream(src=2).start()
+	vs = VideoStream(src=0).start()
 
 # otherwise, grab a reference to the video file
 else:
@@ -74,7 +72,9 @@ while True:
 	cnts = imutils.grab_contours(cnts)
 	center = None
 
-	# only proceed if at least one contour was found
+	pts = []
+
+	# run for first target
 	if len(cnts) > 0:
 		# find the largest contour in the mask, then use
 		# it to compute the minimum enclosing circle and
@@ -96,10 +96,10 @@ while True:
 				distances = np.array(distances)
 				if distances.std() < 5 and distances.mean() < 5:
 					c_found = True
-				print("std")
-				print(distances.std())
-				print("mean")
-				print(np.array(distances).mean())
+				#print("std")
+				#print(distances.std())
+				#print("mean")
+				#print(np.array(distances).mean())
 
 		if c_found:
 			((x, y), radius) = cv2.minEnclosingCircle(c)
@@ -114,21 +114,53 @@ while True:
 				cv2.circle(frame, (int(x), int(y)), int(radius),
 					(0, 255, 255), 2)
 				cv2.circle(frame, center, 5, (0, 0, 255), -1)
-			
-	# update the points queue
-	pts.appendleft(center)
 
-	# loop over the set of tracked points
-	for i in range(1, len(pts)):
-		# if either of the tracked points are None, ignore
-		# them
-		if pts[i - 1] is None or pts[i] is None:
-			continue
+	pts.append((center, radius))
 
-		# otherwise, compute the thickness of the line and
-		# draw the connecting lines
-		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
-		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
+	# run for second target
+	if len(cnts) > 0:
+		# find the largest contour in the mask, then use
+		# it to compute the minimum enclosing circle and
+		# centroid
+
+		c = None
+		# check if its actually a circle
+		c_found = False
+		cnts.sort(key=cv2.contourArea)
+		while not c_found and len(cnts) > 0:
+			distances = []
+			c = cnts.pop(0)
+			((x, y), radius) = cv2.minEnclosingCircle(c)
+			if radius > 10:
+				for p in c:
+					cv2.circle(frame, (p[0][0], p[0][1]), 5, (255, 0, 0))
+					distance_from_center = math.sqrt((x-p[0][0])**2 + (y-p[0][1])**2)
+					distances.append(abs(radius - distance_from_center))
+				distances = np.array(distances)
+				if distances.std() < 5 and distances.mean() < 5:
+					c_found = True
+				#print("std")
+				#print(distances.std())
+				#print("mean")
+				#print(np.array(distances).mean())
+
+		if c_found:
+			((x, y), radius) = cv2.minEnclosingCircle(c)
+
+			M = cv2.moments(c)
+			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+
+			# only proceed if the radius meets a minimum size
+			if radius > 10:
+				# draw the circle and centroid on the frame,
+				# then update the list of tracked points
+				cv2.circle(frame, (int(x), int(y)), int(radius),
+					(0, 255, 255), 2)
+				cv2.circle(frame, center, 5, (0, 0, 255), -1)
+	
+	pts.append((center, radius))
+
+	print(pts)
 
 	# show the frame to our screen
 	cv2.imshow("Frame", frame)
