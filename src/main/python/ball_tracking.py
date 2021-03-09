@@ -23,14 +23,15 @@ args = vars(ap.parse_args())
 # define the lower and upper boundaries of the "yellow"
 # ball in the HSV color space, then initialize the
 # list of tracked points
-yellowLower = (20, 60, 0)
-yellowUpper = (60, 255, 255)
+# exposure values: 1, 20
+yellowLower = (20, 100, 100)
+yellowUpper = (30, 255, 255)
 pts = deque(maxlen=args["buffer"])
 
 # if a video path was not supplied, grab the reference
 # to the webcam
 if not args.get("video", False):
-	vs = VideoStream(src=0).start()
+	vs = VideoStream(src=2).start()
 
 # otherwise, grab a reference to the video file
 else:

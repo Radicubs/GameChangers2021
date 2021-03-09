@@ -9,6 +9,46 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210110.0/
+M	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^			M = cv2.moments(c)$/;"	v	access:public
+ap	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^ap = argparse.ArgumentParser()$/;"	v	access:public
+args	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^args = vars(ap.parse_args())$/;"	v	access:public
+blurred	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	blurred = cv2.GaussianBlur(frame, (11, 11), 0)$/;"	v	access:public
+c	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^			c = cnts.pop(0)$/;"	v	access:public
+c	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^		c = None$/;"	v	access:public
+c_found	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^					c_found = True$/;"	v	access:public
+c_found	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^		c_found = False$/;"	v	access:public
 camera	/home/dchanana/Projects/GameChangers2021/src/main/python/vision.py	/^camera = cv2.VideoCapture("\/dev\/video2")$/;"	v	access:public
+center	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^			center = (int(M["m10"] \/ M["m00"]), int(M["m01"] \/ M["m00"]))$/;"	v	access:public
+center	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	center = None$/;"	v	access:public
+cnts	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,$/;"	v	access:public
+cnts	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	cnts = imutils.grab_contours(cnts)$/;"	v	access:public
+distance_from_center	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^					distance_from_center = math.sqrt((x-p[0][0])**2 + (y-p[0][1])**2)$/;"	v	access:public
+distances	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^				distances = np.array(distances)$/;"	v	access:public
+distances	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^			distances = []$/;"	v	access:public
+frame	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	frame = frame[1] if args.get("video", False) else frame$/;"	v	access:public
+frame	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	frame = imutils.resize(frame, width=600)$/;"	v	access:public
+frame	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	frame = vs.read()$/;"	v	access:public
+hsv	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)$/;"	v	access:public
+key	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	key = cv2.waitKey(1) & 0xFF$/;"	v	access:public
+mask	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	mask = cv2.dilate(mask, None, iterations=2)$/;"	v	access:public
+mask	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	mask = cv2.erode(mask, None, iterations=2)$/;"	v	access:public
+mask	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	mask = cv2.inRange(hsv, yellowLower, yellowUpper)$/;"	v	access:public
+np	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^import numpy as np$/;"	I	access:public	nameref:module:numpy
 np	/home/dchanana/Projects/GameChangers2021/src/main/python/vision.py	/^import numpy as np$/;"	I	access:public	nameref:module:numpy
+pts	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^pts = deque(maxlen=args["buffer"])$/;"	v	access:public
 test	/home/dchanana/Projects/GameChangers2021/src/main/python/vision.py	/^def test():$/;"	f	access:public	signature:()
+thickness	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^		thickness = int(np.sqrt(args["buffer"] \/ float(i + 1)) * 2.5)$/;"	v	access:public
+vs	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	vs = VideoStream(src=0).start()$/;"	v	access:public
+vs	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	vs = VideoStream(src=1).start()$/;"	v	access:public
+vs	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^	vs = VideoStream(src=2).start()$/;"	v	access:public
+yellowLower	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^yellowLower = (20, 100, 100)$/;"	v	access:public
+yellowLower	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^yellowLower = (20, 100, 60)$/;"	v	access:public
+yellowLower	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^yellowLower = (20, 50, 60)$/;"	v	access:public
+yellowLower	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^yellowLower = (20, 60, 0)$/;"	v	access:public
+yellowLower	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^yellowLower = (20, 60, 100)$/;"	v	access:public
+yellowLower	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^yellowLower = (20, 60, 60)$/;"	v	access:public
+yellowUpper	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^yellowUpper = (30, 200, 255)$/;"	v	access:public
+yellowUpper	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^yellowUpper = (30, 255, 255)$/;"	v	access:public
+yellowUpper	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^yellowUpper = (60, 200, 200)$/;"	v	access:public
+yellowUpper	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^yellowUpper = (60, 200, 255)$/;"	v	access:public
+yellowUpper	/home/dchanana/Projects/GameChangers2021/src/main/python/ball_tracking.py	/^yellowUpper = (60, 255, 255)$/;"	v	access:public
