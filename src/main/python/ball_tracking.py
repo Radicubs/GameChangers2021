@@ -23,6 +23,7 @@ args = vars(ap.parse_args())
 # define the lower and upper boundaries of the "yellow"
 # ball in the HSV color space, then initialize the
 # list of tracked points
+# v4l2-ctl -d /dev/video2 -c exposure_auto=1 -c exposure_absolute=20
 # exposure values: 1, 20
 yellowLower = (20, 100, 100)
 yellowUpper = (30, 255, 255)
