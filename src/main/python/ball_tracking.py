@@ -90,7 +90,7 @@ while True:
 			distances = []
 			c = cnts.pop(0)
 			((x, y), radius) = cv2.minEnclosingCircle(c)
-			if radius > 10:
+			if radius > 7:
 				for p in c:
 					cv2.circle(frame, (p[0][0], p[0][1]), 5, (255, 0, 0))
 					distance_from_center = math.sqrt((x-p[0][0])**2 + (y-p[0][1])**2)
@@ -110,7 +110,7 @@ while True:
 			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
 			# only proceed if the radius meets a minimum size
-			if radius > 10:
+			if radius > 7:
 				# draw the circle and centroid on the frame,
 				# then update the list of tracked points
 				cv2.circle(frame, (int(x), int(y)), int(radius),
@@ -214,23 +214,45 @@ while True:
 	ball_in_center = None
 	# if ball in front of us, path A
 	for x in pts:
-		if abs(320 - x[0][0]) < 20:
+		if abs(320 - x[0][0]) < 30:
 			path = "A"
 			ball_in_center = x
 	# if ball to the left or right, path B
 	if path == None:
 		path = "B"
 
+	if path is not None:
+		print("Path: " + path)
+
 	# path a
-	if ball_in_center is not None:
+	if ball_in_center is not None and path == "A":
 		# middle ball far away, blue
-		ball_in_center
+		if ball_in_center[1] < 12:
+			color = "blue"
 
 		# middle ball close by, red
+		else:
+			color = "red"
 
 	# path b
-	# 2 balls to the left, red
-	# 2 balls to the right, blue
+	if path == "B": 
+		num_balls_on_left = 0
+		num_balls_on_right = 0
+		# 2 balls to the left, red
+		for x in pts:
+			if abs(320 - x[0][0]) > 20:
+				if x[0][0] < 320:
+					num_balls_on_left += 1
+				elif x[0][0] > 320:
+					num_balls_on_right += 1
+		if num_balls_on_left == 2:
+			color = "red"
+		# 2 balls to the right, blue
+		elif num_balls_on_right == 2:
+			color = "blue"
+
+	if color is not None:
+		print("Color: " + color)
 
 	# show the frame to our screen
 	cv2.imshow("Frame", frame)
