@@ -20,11 +20,19 @@ ap.add_argument("-b", "--buffer", type=int, default=64,
 	help="max buffer size")
 args = vars(ap.parse_args())
 
+# networktables interface, using blank path variable for now
+ip = "roborio-7503-FRC.local"
+NetworkTables.initialize(server=ip)
+datatable = NetworkTables.getTable("galacticsearch")
+datatable.putString("path", "r") # placeholder
+datatable.putString("color", "r")
+
 # define the lower and upper boundaries of the "yellow"
 # ball in the HSV color space, then initialize the
 # list of tracked points
 # v4l2-ctl -d /dev/video2 -c exposure_auto=1 -c exposure_absolute=20
 # exposure values: 1, 20
+
 yellowLower = (20, 100, 100)
 yellowUpper = (30, 255, 255)
 
@@ -222,6 +230,7 @@ while True:
 		path = "B"
 
 	if path is not None:
+		datatable.putString("path", path)
 		print("Path: " + path)
 
 	# path a
@@ -252,6 +261,7 @@ while True:
 			color = "blue"
 
 	if color is not None:
+		datatable.putString("color", color)
 		print("Color: " + color)
 
 	# show the frame to our screen
@@ -272,10 +282,3 @@ else:
 
 # close all windows
 cv2.destroyAllWindows()
-
-# networktables interface, using blank path variable for now
-path = "AB"
-ip = "roborio-7503-FRC.local"
-NetworkTables.initialize(server=ip)
-datatable = NetworkTables.getTable("datatable")
-datatable.putString("path", path)
