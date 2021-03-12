@@ -10,6 +10,7 @@ import cv2
 import imutils
 import time
 import math
+from networktables import NetworkTables
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -227,3 +228,10 @@ else:
 
 # close all windows
 cv2.destroyAllWindows()
+
+# networktables interface, using blank path variable for now
+path = "AB"
+ip = "roborio-7503-FRC.local"
+NetworkTables.initialize(server=ip)
+datatable = NetworkTables.getTable("datatable")
+datatable.putString("path", path)

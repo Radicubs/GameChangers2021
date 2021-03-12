@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.*;
 import frc.robot.subsystems.*;
 import frc.robot.commands.auto.*;
 
@@ -22,6 +23,10 @@ public class Robot extends TimedRobot {
   private static final String autoNavA = "AutoNav A";
   private static final String autoNavB = "AutoNav B";
 
+  private NetworkTable table;
+  private NetworkTableInstance inst;
+  private NetworkTableEntry pathEntry;
+
   private Command autonomous;
 
   @Override
@@ -30,6 +35,10 @@ public class Robot extends TimedRobot {
     autoChooser.addOption("AutoNav B", autoNavB);
     SmartDashboard.putData("Auto Choices", autoChooser);
     SmartDashboard.updateValues();
+
+    inst = NetworkTableInstance.getDefault();
+    table = inst.getTable("datatable"); 
+    pathEntry = table.getEntry("path");
 
     driveTrain = new DriveBase();
     intake = new Intake();
@@ -43,6 +52,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    String path = pathEntry.getString("AR");
     autoSelected = (String) autoChooser.getSelected();
     System.out.println("Auto selected: " + autoSelected);
     switch (autoSelected) {
