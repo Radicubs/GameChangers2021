@@ -14,8 +14,7 @@ public class MecanumDriver extends Command {
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
-  }
+  protected void initialize() {}
 
   @Override
   protected void execute() {
@@ -49,7 +48,8 @@ public class MecanumDriver extends Command {
       double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
       double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
 
-      Robot.driveTrain.drive(speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn, -speedRFLB + turn);
+      Robot.driveTrain.drive(
+          speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn, -speedRFLB + turn);
     } catch (Exception e) {
       System.out.println("Got exception: " + e);
     }

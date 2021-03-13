@@ -31,14 +31,15 @@ yellowUpper = (30, 255, 255)
 # if a video path was not supplied, grab the reference
 # to the webcam
 if not args.get("video", False):
-	vs = VideoStream(src=0).start()
+	#vs = VideoStream(src=1).start()
+	vs = VideoStream('http://roboRIO-7503-frc.local:1181/stream.mjpg').start()
 
 # otherwise, grab a reference to the video file
 else:
 	vs = cv2.VideoCapture(args["video"])
 
 # allow the camera or video file to warm up
-time.sleep(2.0)
+time.sleep(0)
 
 # keep looping
 while True:
@@ -208,7 +209,28 @@ while True:
 				if center is not None and radius is not None:
 					pts.append((center, radius))
 
-	print(pts)
+	path = None
+	color = None
+	ball_in_center = None
+	# if ball in front of us, path A
+	for x in pts:
+		if abs(320 - x[0][0]) < 20:
+			path = "A"
+			ball_in_center = x
+	# if ball to the left or right, path B
+	if path == None:
+		path = "B"
+
+	# path a
+	if ball_in_center is not None:
+		# middle ball far away, blue
+		ball_in_center
+
+		# middle ball close by, red
+
+	# path b
+	# 2 balls to the left, red
+	# 2 balls to the right, blue
 
 	# show the frame to our screen
 	cv2.imshow("Frame", frame)
