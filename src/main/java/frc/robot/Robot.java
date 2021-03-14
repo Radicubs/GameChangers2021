@@ -6,12 +6,12 @@ package frc.robot;
 
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.networktables.*;
 import frc.robot.commands.auto.*;
 import frc.robot.subsystems.*;
 
@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
   private NetworkTable table;
   private NetworkTableInstance inst;
   private NetworkTableEntry pathEntry;
+  private NetworkTableEntry colorEntry;
 
   private Command autonomous;
 
@@ -39,8 +40,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.updateValues();
 
     inst = NetworkTableInstance.getDefault();
-    table = inst.getTable("datatable"); 
+    table = inst.getTable("galacticsearch");
     pathEntry = table.getEntry("path");
+    colorEntry = table.getEntry("color");
 
     driveTrain = new DriveBase();
     intake = new Intake();
