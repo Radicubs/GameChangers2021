@@ -15,8 +15,8 @@ public class Index extends Subsystem {
     public Index() {
 
         // constructor
-        indexMotorOne = new CANSparkMax(RobotMap.SPARK_9, MotorType.kBrushless);
-        indexMotorTwo = new CANSparkMax(RobotMap.SPARK_11, MotorType.kBrushless);
+        indexMotorOne = new CANSparkMax(RobotMap.INDEX_ONE, MotorType.kBrushless);
+        indexMotorTwo = new CANSparkMax(RobotMap.INDEX_TWO, MotorType.kBrushless);
 
         // Set Motors to default and neutral
         indexMotorOne.restoreFactoryDefaults();

@@ -13,7 +13,7 @@ public class Intake extends Subsystem {
   public Intake() {
 
     // constructor
-    intakeMotor = new CANSparkMax(RobotMap.SPARK_7, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(RobotMap.INTAKE, MotorType.kBrushless);
 
     // Set Motors to default and neutral
     intakeMotor.restoreFactoryDefaults();

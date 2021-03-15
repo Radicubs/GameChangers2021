@@ -18,6 +18,7 @@ public class Robot extends TimedRobot {
   public static DriveBase driveTrain;
   public static Intake intake;
   public static Index index;
+  public static Shooter shooter;
   public static OI oi;
 
   @Override
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
     driveTrain = new DriveBase();
     intake = new Intake();
     index = new Index();
+    shooter = new Shooter();
     // Initialize OI Last
     oi = new OI();
   }
@@ -48,13 +50,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
+    case kCustomAuto:
+      // Put custom auto code here
+      break;
+    case kDefaultAuto:
+    default:
+      // Put default auto code here
+      break;
     }
   }
 
