@@ -24,8 +24,6 @@ args = vars(ap.parse_args())
 ip = "roborio-7503-FRC.local"
 NetworkTables.initialize(server=ip)
 datatable = NetworkTables.getTable("galacticsearch")
-datatable.putString("path", "r") # placeholder
-datatable.putString("color", "r")
 
 # define the lower and upper boundaries of the "yellow"
 # ball in the HSV color space, then initialize the
