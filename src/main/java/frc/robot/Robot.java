@@ -41,6 +41,15 @@ public class Robot extends TimedRobot {
 
     inst = NetworkTableInstance.getDefault();
     table = inst.getTable("galacticsearch");
+
+    table.addEntryListener(
+        "color",
+        (table, key, entry, value, flags) -> {
+          System.out.println("Color changed value: " + value.getValue());
+          // add hook for Galactic Search command
+        },
+        EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+
     pathEntry = table.getEntry("path");
     colorEntry = table.getEntry("color");
 
