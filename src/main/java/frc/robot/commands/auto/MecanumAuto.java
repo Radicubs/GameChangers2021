@@ -38,8 +38,11 @@ public class MecanumAuto extends Command {
         CoordinatePair lastPoint = getFunctionVal(t);
         list.add(lastPoint);
         for (int p = 0; p < POINT_COUNT; p++) {
-            while (lastPoint.getDistance(getFunctionVal(t)) < 0.05) {
-                t += (0.1 / POINT_COUNT);
+            while (lastPoint.getDistance(getFunctionVal(t)) < 1 && t < 1) {
+                t += (0.001 / POINT_COUNT);
+            }
+            if (t > 1) {
+                break;
             }
             lastPoint = getFunctionVal(t);
             list.add(lastPoint);
