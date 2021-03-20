@@ -16,7 +16,7 @@ public class MecanumAuto extends Command {
     private Queue<CoordinatePair> points;
     private CoordinatePair previousPair;
     private CoordinatePair currentPair;
-    private final double POINT_COUNT = 100.0;
+    private final double POINT_COUNT = 300.0;
     private final double STRETCH_FACTOR = 1;
     private String path;
 
@@ -24,7 +24,7 @@ public class MecanumAuto extends Command {
         requires(Robot.driveTrain);
         this.path = path;
     }
-        
+
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
@@ -38,8 +38,8 @@ public class MecanumAuto extends Command {
         CoordinatePair lastPoint = getFunctionVal(t);
         list.add(lastPoint);
         for (int p = 0; p < POINT_COUNT; p++) {
-            while (lastPoint.getDistance(getFunctionVal(t)) < 1 && t < 1) {
-                t += (0.001 / POINT_COUNT);
+            while (lastPoint.getDistance(getFunctionVal(t)) < 0.1 && t < 1) {
+                t += (0.1 / POINT_COUNT);
             }
             if (t > 1) {
                 break;
@@ -48,9 +48,10 @@ public class MecanumAuto extends Command {
             list.add(lastPoint);
         }
 
-        /* for (double t = 0; t < 1; t += 1.0 / POINT_COUNT) {
-            list.add(getFunctionVal(t));
-        } */
+        /*
+         * for (double t = 0; t < 1; t += 1.0 / POINT_COUNT) {
+         * list.add(getFunctionVal(t)); }
+         */
         return (Queue<CoordinatePair>) list;
     }
 
