@@ -7,7 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SerialPort;
 import frc.robot.subsystems.*;
+import com.kauailabs.navx.frc.*;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -20,6 +23,8 @@ public class Robot extends TimedRobot {
   public static Index index;
   public static OI oi;
 
+  public static AHRS ahrs;
+
   @Override
   public void robotInit() {
     // m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -29,6 +34,11 @@ public class Robot extends TimedRobot {
     driveTrain = new DriveBase();
     intake = new Intake();
     index = new Index();
+    try {
+      ahrs = new AHRS(SerialPort.Port.kUSB);
+    } catch (RuntimeException ex) {
+      DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
+    }
     // Initialize OI Last
     oi = new OI();
   }
@@ -48,13 +58,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
+    case kCustomAuto:
+      // Put custom auto code here
+      break;
+    case kDefaultAuto:
+    default:
+      // Put default auto code here
+      break;
     }
   }
 
