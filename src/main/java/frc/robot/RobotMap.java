@@ -51,5 +51,4 @@ public class RobotMap {
   public static final int SPARK_9 = 9;
   public static final int SPARK_10 = 10;
   public static final int SPARK_11 = 11;
-
 }

@@ -18,6 +18,7 @@
 *.so
 *.dylib
 *.dll
+.idea
 
 # Fortran module files
 *.mod
@@ -157,5 +158,6 @@ gradle-app.setting
 bin/
 imgui.ini
 
+venv/
 
 # End of https://www.gitignore.io/api/c++,java,linux,macos,gradle,windows,visualstudiocode
