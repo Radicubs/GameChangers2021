@@ -20,32 +20,25 @@ ap.add_argument("-b", "--buffer", type=int, default=64,
 	help="max buffer size")
 args = vars(ap.parse_args())
 
-# networktables interface, using blank path variable for now
-ip = "roborio-7503-FRC.local"
-NetworkTables.initialize(server=ip)
-datatable = NetworkTables.getTable("galacticsearch")
-
 # define the lower and upper boundaries of the "yellow"
 # ball in the HSV color space, then initialize the
 # list of tracked points
 # v4l2-ctl -d /dev/video2 -c exposure_auto=1 -c exposure_absolute=20
 # exposure values: 1, 20
-
 yellowLower = (20, 100, 100)
 yellowUpper = (30, 255, 255)
 
 # if a video path was not supplied, grab the reference
 # to the webcam
 if not args.get("video", False):
-	#vs = VideoStream(src=1).start()
-	vs = VideoStream('http://roboRIO-7503-frc.local:1181/stream.mjpg').start()
+	vs = VideoStream(src=0).start()
 
 # otherwise, grab a reference to the video file
 else:
 	vs = cv2.VideoCapture(args["video"])
 
 # allow the camera or video file to warm up
-time.sleep(0)
+time.sleep(2.0)
 
 # keep looping
 while True:
@@ -96,7 +89,7 @@ while True:
 			distances = []
 			c = cnts.pop(0)
 			((x, y), radius) = cv2.minEnclosingCircle(c)
-			if radius > 7:
+			if radius > 10:
 				for p in c:
 					cv2.circle(frame, (p[0][0], p[0][1]), 5, (255, 0, 0))
 					distance_from_center = math.sqrt((x-p[0][0])**2 + (y-p[0][1])**2)
@@ -116,7 +109,7 @@ while True:
 			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
 			# only proceed if the radius meets a minimum size
-			if radius > 7:
+			if radius > 10:
 				# draw the circle and centroid on the frame,
 				# then update the list of tracked points
 				cv2.circle(frame, (int(x), int(y)), int(radius),
@@ -215,52 +208,7 @@ while True:
 				if center is not None and radius is not None:
 					pts.append((center, radius))
 
-	path = None
-	color = None
-	ball_in_center = None
-	# if ball in front of us, path A
-	for x in pts:
-		if abs(320 - x[0][0]) < 30:
-			path = "A"
-			ball_in_center = x
-	# if ball to the left or right, path B
-	if path == None:
-		path = "B"
-
-	if path is not None:
-		datatable.putString("path", path)
-		print("Path: " + path)
-
-	# path a
-	if ball_in_center is not None and path == "A":
-		# middle ball far away, blue
-		if ball_in_center[1] < 12:
-			color = "blue"
-
-		# middle ball close by, red
-		else:
-			color = "red"
-
-	# path b
-	if path == "B": 
-		num_balls_on_left = 0
-		num_balls_on_right = 0
-		# 2 balls to the left, red
-		for x in pts:
-			if abs(320 - x[0][0]) > 20:
-				if x[0][0] < 320:
-					num_balls_on_left += 1
-				elif x[0][0] > 320:
-					num_balls_on_right += 1
-		if num_balls_on_left == 2:
-			color = "red"
-		# 2 balls to the right, blue
-		elif num_balls_on_right == 2:
-			color = "blue"
-
-	if color is not None:
-		datatable.putString("color", color)
-		print("Color: " + color)
+	print(pts)
 
 	# show the frame to our screen
 	cv2.imshow("Frame", frame)
@@ -280,3 +228,10 @@ else:
 
 # close all windows
 cv2.destroyAllWindows()
+
+# networktables interface, using blank path variable for now
+path = "AB"
+ip = "roborio-7503-FRC.local"
+NetworkTables.initialize(server=ip)
+datatable = NetworkTables.getTable("datatable")
+datatable.putString("path", path)
