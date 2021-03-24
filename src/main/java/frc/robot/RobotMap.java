@@ -45,10 +45,16 @@ public class RobotMap {
   public static final int RIGHT_FALCON_FRONT = 3;
   public static final int RIGHT_FALCON_BACK = 5;
 
+  // SHOOTER MOTORS
+  public static final int SHOOTER_LEFT = 18;
+  public static final int SHOOTER_RIGHT = 19;
+
   // SPARK MAX MOTOR CONTROLLERS
-  public static final int SPARK_7 = 7;
+  public static final int INTAKE = 7;
   public static final int SPARK_8 = 8;
-  public static final int SPARK_9 = 9;
+  public static final int INDEX_ONE = 9;
   public static final int SPARK_10 = 10;
   public static final int SPARK_11 = 11;
+  public static final int INDEX_TWO = 11;
+
 }

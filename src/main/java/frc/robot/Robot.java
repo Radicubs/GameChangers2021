@@ -22,6 +22,7 @@ public class Robot extends TimedRobot {
   public static DriveBase driveTrain;
   public static Intake intake;
   public static Index index;
+  public static Shooter shooter;
   public static OI oi;
 
   private String autoSelected;;
@@ -48,13 +49,10 @@ public class Robot extends TimedRobot {
     inst = NetworkTableInstance.getDefault();
     table = inst.getTable("galacticsearch");
 
-    table.addEntryListener(
-        "color",
-        (table, key, entry, value, flags) -> {
-          System.out.println("Color changed value: " + value.getValue());
-          // add hook for Galactic Search command
-        },
-        EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+    table.addEntryListener("color", (table, key, entry, value, flags) -> {
+      System.out.println("Color changed value: " + value.getValue());
+      // add hook for Galactic Search command
+    }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
 
     pathEntry = table.getEntry("path");
     colorEntry = table.getEntry("color");
@@ -67,12 +65,14 @@ public class Robot extends TimedRobot {
     } catch (RuntimeException ex) {
       DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
     }
+    shooter = new Shooter();
     // Initialize OI Last
     oi = new OI();
   }
 
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+  }
 
   @Override
   public void autonomousInit() {
@@ -80,14 +80,14 @@ public class Robot extends TimedRobot {
     autoSelected = (String) autoChooser.getSelected();
     System.out.println("Auto selected: " + autoSelected);
     switch (autoSelected) {
-      case autoNavA:
-        autonomous = new AutoNavA();
-        break;
-      case autoNavB:
-        autonomous = new AutoNavB();
-        break;
-      default:
-        break;
+    case autoNavA:
+      autonomous = new AutoNavA();
+      break;
+    case autoNavB:
+      autonomous = new AutoNavB();
+      break;
+    default:
+      break;
     }
     autonomous = new MecanumAuto("AutoNavA");
     if (autonomous != null) {
@@ -111,7 +111,8 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+  }
 
   /** This function is called periodically during operator control. */
   @Override
@@ -121,11 +122,13 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
   /** This function is called periodically when disabled. */
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
   /** This function is called once when test mode is enabled. */
   @Override
