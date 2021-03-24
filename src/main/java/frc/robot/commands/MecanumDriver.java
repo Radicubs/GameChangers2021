@@ -38,7 +38,7 @@ public class MecanumDriver extends Command {
 
       y *= driveMode;
       x *= driveMode;
-      turn *= driveMode;
+      turn *= driveMode / 2;
 
       double angle = Math.atan2(x, y);
       angle = angle != Double.NaN ? angle : 0;
