@@ -26,6 +26,10 @@ public class CoordinatePair {
         this.y = y;
     }
 
+    public double getDistance(CoordinatePair p2) {
+        return Math.sqrt(Math.pow((this.x - p2.getX()),2) + Math.pow((this.y - p2.getY()),2));
+    }
+
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";

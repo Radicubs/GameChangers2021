@@ -8,7 +8,7 @@ import frc.robot.commands.RunIntake;
 
 public class Intake extends Subsystem {
   private CANSparkMax intakeMotor;
-  private double speed = 0.8;
+  private double speed = 0.75;
 
   public Intake() {
 
