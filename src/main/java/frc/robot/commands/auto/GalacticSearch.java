@@ -20,11 +20,56 @@ public class GalacticSearch extends Command {
     private final double STRETCH_FACTOR = 1;
     private String path;
     private String color;
+    private BezierFunction function;
 
     public GalacticSearch(String path, String color) {
         requires(Robot.driveTrain);
         this.path = path;
         this.color = color;
+        if (this.path.equals("A")) {
+            if (this.color.equals("red")) {
+                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
+                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
+                BezierPoint navACp3 = new BezierPoint(34, -69);
+                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
+                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
+
+                function = new BezierFunction(pointsArr);
+            }
+            if (this.color.equals("blue")) {
+                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
+                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
+                BezierPoint navACp3 = new BezierPoint(34, -69);
+                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
+                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
+
+                function = new BezierFunction(pointsArr);
+            }
+        }
+        if (this.path.equals("B")) {
+            if (this.color.equals("red")) {
+                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
+                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
+                BezierPoint navACp3 = new BezierPoint(34, -69);
+                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
+                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
+
+                function = new BezierFunction(pointsArr);
+            }
+            if (this.color.equals("blue")) {
+                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
+                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
+                BezierPoint navACp3 = new BezierPoint(34, -69);
+                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
+                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
+
+                function = new BezierFunction(pointsArr);
+            }
+        }
     }
         
     // Called just before this Command runs the first time
@@ -43,70 +88,11 @@ public class GalacticSearch extends Command {
     }
 
     private CoordinatePair getFunctionVal(double t) {
-
-        // NEED TO CHANGE THIS 
-        // NEED TO CHANGE THIS 
-        // NEED TO CHANGE THIS 
-        // NEED TO CHANGE THIS 
-
-        // WE NEED TO TELL IT PATH NAME AND COLOR
-        // THIS CODE IS FOR AUTONAV
-        
         double x = 0;
         double y = 0;
 
-        if (this.path.equals("A")) {
-            if (this.color.equals("red")) {
-                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
-                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
-                BezierPoint navACp3 = new BezierPoint(34, -69);
-                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
-                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
-                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
-
-                BezierFunction function = new BezierFunction(pointsArr);
-                x = function.getPos(t).getX();
-                y = function.getPos(t).getY();
-            }
-            if (this.color.equals("blue")) {
-                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
-                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
-                BezierPoint navACp3 = new BezierPoint(34, -69);
-                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
-                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
-                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
-
-                BezierFunction function = new BezierFunction(pointsArr);
-                x = function.getPos(t).getX();
-                y = function.getPos(t).getY();
-            }
-        }
-        if (this.path.equals("B")) {
-            if (this.color.equals("red")) {
-                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
-                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
-                BezierPoint navACp3 = new BezierPoint(34, -69);
-                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
-                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
-                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
-
-                BezierFunction function = new BezierFunction(pointsArr);
-                x = function.getPos(t).getX();
-                y = function.getPos(t).getY();
-            }
-            if (this.color.equals("blue")) {
-                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
-                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
-                BezierPoint navACp3 = new BezierPoint(34, -69);
-                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
-                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
-                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
-
-                BezierFunction function = new BezierFunction(pointsArr);
-                x = function.getPos(t).getX();
-                y = function.getPos(t).getY();
-            }
-        }
+        x = function.getPos(t).getX();
+        y = function.getPos(t).getY();
 
         System.out.println("t: " + t);
         return new CoordinatePair(x, y);
