@@ -19,10 +19,31 @@ public class MecanumAuto extends Command {
     private final double POINT_COUNT = 300.0;
     private final double STRETCH_FACTOR = 1;
     private String path;
+    private BezierFunction function;
 
     public MecanumAuto(String path) {
         requires(Robot.driveTrain);
         this.path = path;
+
+        switch (this.path) {
+            case "AutoNavA":
+                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
+                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
+                BezierPoint navACp3 = new BezierPoint(34, -69);
+                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
+                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
+    
+                function = new BezierFunction(pointsArr);
+                break;
+            case "AutoNavB":
+                x = t;
+                y = t;
+                break;
+            case "AutoNavC":
+                break;
+    
+            }
     }
 
     // Called just before this Command runs the first time
@@ -58,28 +79,8 @@ public class MecanumAuto extends Command {
     private CoordinatePair getFunctionVal(double t) {
         double x = 0;
         double y = 0;
-
-        switch (this.path) {
-        case "AutoNavA":
-            BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
-            BezierPoint navACp2 = new BezierPoint(-27.3, 68);
-            BezierPoint navACp3 = new BezierPoint(34, -69);
-            BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
-            BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
-            BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
-
-            BezierFunction function = new BezierFunction(pointsArr);
-            x = function.getPos(t).getX();
-            y = function.getPos(t).getY();
-            break;
-        case "AutoNavB":
-            x = t;
-            y = t;
-            break;
-        case "AutoNavC":
-            break;
-
-        }
+        x = function.getPos(t).getX();
+        y = function.getPos(t).getY();
         System.out.println("t: " + t);
         return new CoordinatePair(x, y);
     }
