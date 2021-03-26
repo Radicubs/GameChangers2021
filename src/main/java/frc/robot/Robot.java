@@ -4,13 +4,13 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.*;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SerialPort;
 import frc.robot.subsystems.*;
-import com.kauailabs.navx.frc.*;
 
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
@@ -24,6 +24,8 @@ public class Robot extends TimedRobot {
   public static OI oi;
 
   public static AHRS ahrs;
+
+  public static double init_angle = 0;
 
   @Override
   public void robotInit() {
@@ -45,6 +47,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    // System.out.println("Angle");
+    // System.out.println((ahrs.getAngle() - init_angle) % 360);
   }
 
   @Override
@@ -58,19 +62,20 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
-    case kCustomAuto:
-      // Put custom auto code here
-      break;
-    case kDefaultAuto:
-    default:
-      // Put default auto code here
-      break;
+      case kCustomAuto:
+        // Put custom auto code here
+        break;
+      case kDefaultAuto:
+      default:
+        // Put default auto code here
+        break;
     }
   }
 
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
+    init_angle = ahrs.getAngle();
   }
 
   /** This function is called periodically during operator control. */
@@ -81,21 +86,17 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {
-  }
+  public void disabledInit() {}
 
   /** This function is called periodically when disabled. */
   @Override
-  public void disabledPeriodic() {
-  }
+  public void disabledPeriodic() {}
 
   /** This function is called once when test mode is enabled. */
   @Override
-  public void testInit() {
-  }
+  public void testInit() {}
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
-  }
+  public void testPeriodic() {}
 }
