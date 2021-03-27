@@ -37,8 +37,7 @@ public class MecanumAuto extends Command {
                 function = new BezierFunction(pointsArr);
                 break;
             case "AutoNavB":
-                x = t;
-                y = t;
+                
                 break;
             case "AutoNavC":
                 break;
