@@ -220,7 +220,7 @@ while True:
 	ball_in_center = None
 	# if ball in front of us, path A
 	for x in pts:
-		if abs(320 - x[0][0]) < 30:
+		if abs(320 - x[0][0]) < 60:
 			path = "A"
 			ball_in_center = x
 	# if ball to the left or right, path B

@@ -16,7 +16,7 @@ public class GalacticSearch extends Command {
     private Queue<CoordinatePair> points;
     private CoordinatePair previousPair;
     private CoordinatePair currentPair;
-    private final double POINT_COUNT = 100.0;
+    private final double POINT_COUNT = 10000.0;
     private final double STRETCH_FACTOR = 1;
     private String path;
     private String color;
@@ -78,13 +78,29 @@ public class GalacticSearch extends Command {
         points = getPoints();
     }
 
-    private Queue<CoordinatePair> getPoints() {
-
-        Queue<CoordinatePair> list = new LinkedList<CoordinatePair>();
-        for (double t = 0; t < 1; t += 1.0 / POINT_COUNT) {
-            list.add(getFunctionVal(t));
+    private LinkedList<CoordinatePair> getPoints() {
+        System.out.println("meow");
+        LinkedList<CoordinatePair> list = new LinkedList<CoordinatePair>();
+        double t = 0;
+        CoordinatePair lastPoint = getFunctionVal(t);
+        list.push(lastPoint);
+        for (int p = 0; p < POINT_COUNT; p++) {
+            while (lastPoint.getDistance(getFunctionVal(t)) < 0.50 && t < 1) {
+                t += (0.0001);
+            }
+            if (t > 1) {
+                break;
+            }
+            lastPoint = getFunctionVal(t);
+            list.add(lastPoint);
         }
-        return (Queue<CoordinatePair>) list;
+
+        /*
+         * for (double t = 0; t < 1; t += 1.0 / POINT_COUNT) {
+         * list.add(getFunctionVal(t)); }
+         */
+        System.out.println(list);
+        return (LinkedList<CoordinatePair>) list;
     }
 
     private CoordinatePair getFunctionVal(double t) {
@@ -94,23 +110,24 @@ public class GalacticSearch extends Command {
         x = function.getPos(t).getX();
         y = function.getPos(t).getY();
 
-        System.out.println("t: " + t);
         return new CoordinatePair(x, y);
     }
 
     @Override
     protected void execute() {
+        System.out.println(points.size());
+
         try {
-            currentPair = points.remove();
-            double turn = 0;
             if (previousPair == null) {
                 previousPair = points.remove();
             }
-            System.out.println(currentPair);
+            currentPair = points.remove();
+            double turn = 0;
 
             double x = currentPair.getX() - previousPair.getX();
+            // x *= 1.37;
             double y = (currentPair.getY() - previousPair.getY());
-            double angle = Math.atan2(x, y);
+            double angle = Math.atan2(y, x);
             angle = angle != Double.NaN ? angle : 0;
 
             // Normalize Values

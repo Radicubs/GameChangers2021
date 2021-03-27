@@ -9,7 +9,6 @@ import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -31,12 +30,12 @@ public class Robot extends TimedRobot {
 
   private NetworkTable table;
   private NetworkTableInstance inst;
-  private NetworkTableEntry pathEntry;
-  private NetworkTableEntry colorEntry;
+  private String pathEntry;
+  private String colorEntry;
 
   private Command autonomous;
 
-  public static AHRS ahrs;
+  // public static AHRS ahrs;
 
   @Override
   public void robotInit() {
@@ -45,25 +44,19 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto Choices", autoChooser);
     SmartDashboard.updateValues();
 
+    UsbCamera usbCamera = new UsbCamera("USB Camera 0", 0);
+    usbCamera.setResolution(1280, 720);
+    usbCamera.setFPS(30);
+    MjpegServer mjpegServer = new MjpegServer("radicubs", 1181);
+    mjpegServer.setSource(usbCamera);
+
     inst = NetworkTableInstance.getDefault();
-    table = inst.getTable("galacticsearch");
-
-    table.addEntryListener(
-        "color",
-        (table, key, entry, value, flags) -> {
-          System.out.println("Color changed value: " + value.getValue());
-          // add hook for Galactic Search command
-        },
-        EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
-
-    pathEntry = table.getEntry("path");
-    colorEntry = table.getEntry("color");
 
     driveTrain = new DriveBase();
     intake = new Intake();
     index = new Index();
     try {
-      ahrs = new AHRS(SerialPort.Port.kUSB);
+      // ahrs = new AHRS(SerialPort.Port.kUSB);
     } catch (RuntimeException ex) {
       DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
     }
@@ -76,7 +69,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    String path = pathEntry.getString("AR");
+    // String path = pathEntry.getString("AR");
+    /*
     autoSelected = (String) autoChooser.getSelected();
     System.out.println("Auto selected: " + autoSelected);
     switch (autoSelected) {
@@ -92,7 +86,21 @@ public class Robot extends TimedRobot {
     autonomous = new MecanumAuto("AutoNavA");
     if (autonomous != null) {
       autonomous.start();
-    }
+    } */
+
+    table = inst.getTable("galacticsearch");
+
+    table.addEntryListener(
+        "color",
+        (table, key, entry, value, flags) -> {
+          pathEntry = table.getEntry("path").getString("");
+          colorEntry = table.getEntry("color").getString("");
+
+          autonomous = new GalacticSearch(pathEntry, colorEntry);
+          // autonomous = new GalacticSearch("A", "blue");
+          autonomous.start();
+        },
+        EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
   }
 
   /** This function is called periodically during autonomous. */
@@ -129,13 +137,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when test mode is enabled. */
   @Override
-  public void testInit() {
-    UsbCamera usbCamera = new UsbCamera("USB Camera 0", 0);
-    usbCamera.setResolution(1280, 720);
-    usbCamera.setFPS(30);
-    MjpegServer mjpegServer = new MjpegServer("radicubs", 1181);
-    mjpegServer.setSource(usbCamera);
-  }
+  public void testInit() {}
 
   /** This function is called periodically during test mode. */
   @Override
