@@ -12,7 +12,7 @@ public class Shooter extends Subsystem {
     private TalonFX shooterMotorOne;
     private TalonFX shooterMotorTwo;
 
-    private double speed = 1;
+    private double speed = 0.1;
 
     public Shooter() {
 

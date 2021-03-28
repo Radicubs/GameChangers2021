@@ -18,7 +18,7 @@ public class RunShooter extends Command {
     @Override
     protected void execute() {
         // speed *= intakeState;
-        Robot.shooter.shootBall(speed * shooterState);
+        Robot.shooter.shootBall(-speed * shooterState);
         SmartDashboard.putString("Intake State", dashboardState);
     }
 
