@@ -9,6 +9,9 @@ import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.DriverStation;
+import com.kauailabs.navx.frc.*;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -27,6 +30,8 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> autoChooser = new SendableChooser<>();
   private static final String autoNavA = "AutoNav A";
   private static final String autoNavB = "AutoNav B";
+
+  public static double init_angle = 0;
 
   private NetworkTable table;
   private NetworkTableInstance inst;
@@ -65,7 +70,10 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    // System.out.println("Angle");
+    // System.out.println((ahrs.getAngle() - init_angle) % 360);
+  }
 
   @Override
   public void autonomousInit() {
@@ -119,7 +127,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    init_angle = ahrs.getAngle();
+  }
 
   /** This function is called periodically during operator control. */
   @Override

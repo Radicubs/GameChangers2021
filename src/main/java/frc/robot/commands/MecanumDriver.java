@@ -42,6 +42,10 @@ public class MecanumDriver extends Command {
 
       double angle = Math.atan2(x, y);
       angle = angle != Double.NaN ? angle : 0;
+
+      System.out.println(angle);
+      angle += ((Robot.ahrs.getAngle() - Robot.init_angle) / (180)) * Math.PI;
+
       double magnitude = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
       magnitude = magnitude < 1 ? magnitude : 1;
 
