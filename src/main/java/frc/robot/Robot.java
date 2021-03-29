@@ -9,8 +9,6 @@ import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.DriverStation;
-import com.kauailabs.navx.frc.*;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -30,7 +28,7 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> autoChooser = new SendableChooser<>();
   private static final String autoNavA = "AutoNav A";
   private static final String autoNavB = "AutoNav B";
-
+  public static AHRS ahrs;
   public static double init_angle = 0;
 
   private NetworkTable table;
@@ -39,8 +37,6 @@ public class Robot extends TimedRobot {
   private String colorEntry;
 
   private Command autonomous;
-
-  // public static AHRS ahrs;
 
   @Override
   public void robotInit() {
@@ -61,7 +57,7 @@ public class Robot extends TimedRobot {
     intake = new Intake();
     index = new Index();
     try {
-      // ahrs = new AHRS(SerialPort.Port.kUSB);
+      ahrs = new AHRS(SerialPort.Port.kUSB);
     } catch (RuntimeException ex) {
       DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
     }
@@ -108,12 +104,13 @@ public class Robot extends TimedRobot {
           // autonomous = new GalacticSearch("A", "blue");
           autonomous.start();
         },
-        EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+        EntryListenerFlags.kNew);
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    Scheduler.getInstance().run();
     // switch (m_autoSelected) {
     // case kCustomAuto:
     // // Put custom auto code here
@@ -128,6 +125,8 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
+    init_angle = 0;
+    ahrs.setAngleAdjustment(-ahrs.getAngle());
     init_angle = ahrs.getAngle();
   }
 

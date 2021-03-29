@@ -85,8 +85,8 @@ public class GalacticSearch extends Command {
         CoordinatePair lastPoint = getFunctionVal(t);
         list.push(lastPoint);
         for (int p = 0; p < POINT_COUNT; p++) {
-            while (lastPoint.getDistance(getFunctionVal(t)) < 0.50 && t < 1) {
-                t += (0.0001);
+            while (lastPoint.getDistance(getFunctionVal(t)) < 0.10 && t < 1) {
+                t += (0.001);
             }
             if (t > 1) {
                 break;
@@ -122,13 +122,14 @@ public class GalacticSearch extends Command {
                 previousPair = points.remove();
             }
             currentPair = points.remove();
-            double turn = 0;
 
             double x = currentPair.getX() - previousPair.getX();
             // x *= 1.37;
             double y = (currentPair.getY() - previousPair.getY());
             double angle = Math.atan2(y, x);
             angle = angle != Double.NaN ? angle : 0;
+            double turn = Math.sin(angle);
+            System.out.println(turn);
 
             // Normalize Values
             x = Math.cos(angle);

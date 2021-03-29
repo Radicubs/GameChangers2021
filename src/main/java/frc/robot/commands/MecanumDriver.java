@@ -38,12 +38,24 @@ public class MecanumDriver extends Command {
 
       y *= driveMode;
       x *= driveMode;
-      turn *= driveMode / 2;
 
       double angle = Math.atan2(x, y);
+
       angle = angle != Double.NaN ? angle : 0;
 
       System.out.println(angle);
+      System.out.println(Robot.ahrs.getAngle());
+      turn = Math.sin(Math.abs(angle) - Math.abs(Robot.ahrs.getAngle()));
+      if (x > 0) {
+        turn = Math.abs(turn);
+      }
+      if (x < 0) {
+        turn = -Math.abs(turn);
+      }
+      // double turn = 0; // Math.sin(Math.abs())
+
+      turn *= driveMode / 2;
+
       angle += ((Robot.ahrs.getAngle() - Robot.init_angle) / (180)) * Math.PI;
 
       double magnitude = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
