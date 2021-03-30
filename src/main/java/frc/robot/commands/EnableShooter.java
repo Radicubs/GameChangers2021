@@ -3,38 +3,38 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class EnableShooter {
-    
-    public EnableShooter() {
-        requires(Robot.elevator);
-        requires(Robot.index);
-        requires(Robot.shooter);
-    }
+public class EnableShooter extends Command {
 
-    @Override
-    protected void initialize() {}
+  public EnableShooter() {
+    requires(Robot.elevator);
+    requires(Robot.index);
+    requires(Robot.shooter);
+  }
 
-    @Override
-    protected void execute() {
-        Robot.elevator.elevatorUp(0.8);
-        Robot.index.indexIn(0.8);
-        Robot.shooter.shootBall(0.8);
-    }
+  @Override
+  protected void initialize() {}
 
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
+  @Override
+  protected void execute() {
+    Robot.elevator.elevatorUp(0.8);
+    Robot.index.indexIn(0.8);
+    Robot.shooter.shootBall(0.8);
+  }
 
-    @Override
-    protected void end() {
-        Robot.elevator.elevatorUp(0);
-        Robot.index.indexIn(0);
-        Robot.shooter.shootBall(0);
-    }
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
 
-    @Override
-    protected void interrupted() {
-        super.interrupted();
-    }
+  @Override
+  protected void end() {
+    Robot.elevator.elevatorUp(0);
+    Robot.index.indexIn(0);
+    Robot.shooter.shootBall(0);
+  }
+
+  @Override
+  protected void interrupted() {
+    super.interrupted();
+  }
 }

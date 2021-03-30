@@ -3,10 +3,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.*;
 import frc.robot.commands.DriveMode;
 import frc.robot.commands.IndexState;
 import frc.robot.commands.IntakeState;
 import frc.robot.commands.ShooterState;
+import frc.robot.commands.auto.*;
 
 public class OI {
   public static Joystick controller = new Joystick(RobotMap.JOYSTICK);

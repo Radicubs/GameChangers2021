@@ -7,30 +7,29 @@ import frc.robot.RobotMap;
 import frc.robot.commands.RunIndex;
 
 public class Index extends Subsystem {
-    private CANSparkMax indexMotorOne;
-    private CANSparkMax indexMotorTwo;
+  private CANSparkMax indexMotorOne;
+  private CANSparkMax indexMotorTwo;
 
-    private double speed = 0.25;
+  private double speed = 0.25;
 
-    public Index() {
+  public Index() {
 
-        // constructor
-        indexMotorOne = new CANSparkMax(RobotMap.INDEX_ONE, MotorType.kBrushless);
-        indexMotorTwo = new CANSparkMax(RobotMap.INDEX_TWO, MotorType.kBrushless);
+    // constructor
+    indexMotorOne = new CANSparkMax(RobotMap.INDEX_ONE, MotorType.kBrushless);
+    indexMotorTwo = new CANSparkMax(RobotMap.INDEX_TWO, MotorType.kBrushless);
 
-        // Set Motors to default and neutral
-        indexMotorOne.restoreFactoryDefaults();
-        indexMotorTwo.restoreFactoryDefaults();
-    }
+    // Set Motors to default and neutral
+    indexMotorOne.restoreFactoryDefaults();
+    indexMotorTwo.restoreFactoryDefaults();
+  }
 
-    public void indexIn(double speed) {
-        indexMotorOne.set(speed);
-        indexMotorTwo.set(-speed);
+  public void indexIn(double speed) {
+    indexMotorOne.set(speed);
+    indexMotorTwo.set(-speed);
+  }
 
-    }
-
-    @Override
-    public void initDefaultCommand() {
-        setDefaultCommand(new RunIndex(speed));
-    }
+  @Override
+  public void initDefaultCommand() {
+    setDefaultCommand(new RunIndex(speed));
+  }
 }
