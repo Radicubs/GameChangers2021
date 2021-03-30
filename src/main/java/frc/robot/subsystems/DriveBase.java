@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot.*;
 import frc.robot.RobotMap;
-import frc.robot.commands.*;
+import frc.robot.commands.init.*;
 
 public class DriveBase extends Subsystem {
 
@@ -87,6 +87,18 @@ public class DriveBase extends Subsystem {
   }
 
   public void drive(double speedRF, double speedRB, double speedLF, double speedLB) {
+    if (speedRF > 1) {
+      System.out.println(speedRF);
+    }
+    if (speedRB > 1) {
+      System.out.println(speedRB);
+    }
+    if (speedLF > 1) {
+      System.out.println(speedLF);
+    }
+    if (speedLB > 1) {
+      System.out.println(speedLB);
+    }
     rightMotorFront.set(ControlMode.PercentOutput, K * speedRF);
     rightMotorBack.set(ControlMode.PercentOutput, K * speedRB);
 
@@ -96,6 +108,6 @@ public class DriveBase extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new MecanumDriver());
+    setDefaultCommand(new RunMecanum());
   }
 }

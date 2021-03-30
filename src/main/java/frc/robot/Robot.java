@@ -9,6 +9,8 @@ import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.DriverStation;
+import com.kauailabs.navx.frc.*;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,7 +24,9 @@ public class Robot extends TimedRobot {
   public static DriveBase driveTrain;
   public static Intake intake;
   public static Index index;
+  public static Elevator elevator;
   public static Shooter shooter;
+  public static Limelight limeLight;
   public static OI oi;
 
   private String autoSelected;;
@@ -30,10 +34,12 @@ public class Robot extends TimedRobot {
   private static final String autoNavA = "AutoNav A";
   private static final String autoNavB = "AutoNav B";
 
+  public static double init_angle = 0;
+
   private NetworkTable table;
   private NetworkTableInstance inst;
-  private NetworkTableEntry pathEntry;
-  private NetworkTableEntry colorEntry;
+  private String pathEntry;
+  private String colorEntry;
 
   private Command autonomous;
 
@@ -46,16 +52,20 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto Choices", autoChooser);
     SmartDashboard.updateValues();
 
+    UsbCamera usbCamera = new UsbCamera("USB Camera 0", 0);
+    usbCamera.setResolution(1280, 720);
+    usbCamera.setFPS(30);
+    MjpegServer mjpegServer = new MjpegServer("radicubs", 1181);
+    mjpegServer.setSource(usbCamera);
     inst = NetworkTableInstance.getDefault();
     table = inst.getTable("galacticsearch");
 
     table.addEntryListener("color", (table, key, entry, value, flags) -> {
       System.out.println("Color changed value: " + value.getValue());
       // add hook for Galactic Search command
-    }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+    }, EntryListenerFlags.kNew);
 
-    pathEntry = table.getEntry("path");
-    colorEntry = table.getEntry("color");
+    inst = NetworkTableInstance.getDefault();
 
     driveTrain = new DriveBase();
     intake = new Intake();
@@ -65,53 +75,44 @@ public class Robot extends TimedRobot {
     } catch (RuntimeException ex) {
       DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
     }
+    elevator = new Elevator();
     shooter = new Shooter();
+    limeLight = new Limelight();
     // Initialize OI Last
     oi = new OI();
   }
 
   @Override
   public void robotPeriodic() {
+    // System.out.println("Angle");
+    // System.out.println((ahrs.getAngle() - init_angle) % 360);
   }
 
   @Override
   public void autonomousInit() {
-    String path = pathEntry.getString("AR");
-    autoSelected = (String) autoChooser.getSelected();
-    System.out.println("Auto selected: " + autoSelected);
-    switch (autoSelected) {
-    case autoNavA:
-      autonomous = new AutoNavA();
-      break;
-    case autoNavB:
-      autonomous = new AutoNavB();
-      break;
-    default:
-      break;
-    }
-    autonomous = new MecanumAuto("AutoNavA");
-    if (autonomous != null) {
+    table = inst.getTable("galacticsearch");
+
+    table.addEntryListener("color", (table, key, entry, value, flags) -> {
+      pathEntry = table.getEntry("path").getString("");
+      colorEntry = table.getEntry("color").getString("");
+
+      autonomous = new GalacticSearch(pathEntry, colorEntry);
+      // autonomous = new GalacticSearch("A", "blue");
       autonomous.start();
-    }
+    }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    // switch (m_autoSelected) {
-    // case kCustomAuto:
-    // // Put custom auto code here
-    // break;
-    // case kDefaultAuto:
-    // default:
-    // // Put default auto code here
-    // break;
-    // }
+    Scheduler.getInstance().run();
   }
 
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
+    init_angle = ahrs.getAngle();
   }
 
   /** This function is called periodically during operator control. */

@@ -4,7 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.RunIndex;
+import frc.robot.commands.init.*;
 
 public class Index extends Subsystem {
   private CANSparkMax indexMotorOne;
