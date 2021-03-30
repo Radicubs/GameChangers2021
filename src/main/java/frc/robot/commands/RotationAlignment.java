@@ -6,7 +6,7 @@ import frc.robot.Robot;
 public class RotationAlignment extends Command {
   public RotationAlignment() {
 
-    requires(Robot.driveBase);
+    requires(Robot.driveTrain);
   }
 
   private boolean rotationFinished = false;
@@ -22,7 +22,7 @@ public class RotationAlignment extends Command {
     System.out.println(Robot.limeLight.getTable().getEntry("tx").getDouble(0.0));
     double x = Robot.limeLight.getTable().getEntry("tx").getDouble(0.0);
     if (Math.abs(x) > 3) {
-      Robot.driveBase.drive(-x / 100, -x / 100, x / 100, x / 100);
+      Robot.driveTrain.drive(-x / 100, -x / 100, x / 100, x / 100);
     } else {
       rotationFinished = true;
     }

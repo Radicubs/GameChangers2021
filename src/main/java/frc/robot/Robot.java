@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
   public static Index index;
   public static Elevator elevator;
   public static Shooter shooter;
+  public static Limelight limeLight;
   public static OI oi;
 
   private String autoSelected;;
@@ -76,6 +77,7 @@ public class Robot extends TimedRobot {
     }
     elevator = new Elevator();
     shooter = new Shooter();
+    limeLight = new Limelight();
     // Initialize OI Last
     oi = new OI();
   }

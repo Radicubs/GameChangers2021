@@ -55,5 +55,6 @@ public class RobotMap {
   public static final int INDEX_ONE = 9;
   public static final int SPARK_10 = 10;
   public static final int INDEX_TWO = 11;
-
+  public static final int ELEVATOR_BACK = 11;
+  public static final int ELEVATOR_FRONT = 7;
 }
