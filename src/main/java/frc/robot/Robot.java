@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
 
   private Command autonomous;
 
-  // public static AHRS ahrs;
+  public static AHRS ahrs;
 
   @Override
   public void robotInit() {
@@ -79,36 +79,23 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     // String path = pathEntry.getString("AR");
     /*
-    autoSelected = (String) autoChooser.getSelected();
-    System.out.println("Auto selected: " + autoSelected);
-    switch (autoSelected) {
-      case autoNavA:
-        autonomous = new AutoNavA();
-        break;
-      case autoNavB:
-        autonomous = new AutoNavB();
-        break;
-      default:
-        break;
-    }
-    autonomous = new MecanumAuto("AutoNavA");
-    if (autonomous != null) {
-      autonomous.start();
-    } */
+     * autoSelected = (String) autoChooser.getSelected();
+     * System.out.println("Auto selected: " + autoSelected); switch (autoSelected) {
+     * case autoNavA: autonomous = new AutoNavA(); break; case autoNavB: autonomous
+     * = new AutoNavB(); break; default: break; } autonomous = new
+     * MecanumAuto("AutoNavA"); if (autonomous != null) { autonomous.start(); }
+     */
 
     table = inst.getTable("galacticsearch");
 
-    table.addEntryListener(
-        "color",
-        (table, key, entry, value, flags) -> {
-          pathEntry = table.getEntry("path").getString("");
-          colorEntry = table.getEntry("color").getString("");
+    table.addEntryListener("color", (table, key, entry, value, flags) -> {
+      pathEntry = table.getEntry("path").getString("");
+      colorEntry = table.getEntry("color").getString("");
 
-          autonomous = new GalacticSearch(pathEntry, colorEntry);
-          // autonomous = new GalacticSearch("A", "blue");
-          autonomous.start();
-        },
-        EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+      autonomous = new GalacticSearch(pathEntry, colorEntry);
+      // autonomous = new GalacticSearch("A", "blue");
+      autonomous.start();
+    }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
   }
 
   /** This function is called periodically during autonomous. */
@@ -139,15 +126,18 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
   /** This function is called periodically when disabled. */
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
   /** This function is called once when test mode is enabled. */
   @Override
-  public void testInit() {}
+  public void testInit() {
+  }
 
   /** This function is called periodically during test mode. */
   @Override
