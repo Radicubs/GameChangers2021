@@ -19,6 +19,7 @@ public class Robot extends TimedRobot {
   public static DriveBase driveTrain;
   public static Intake intake;
   public static Index index;
+  public static Elevator elevator;
   public static Shooter shooter;
   public static OI oi;
 
@@ -55,6 +56,7 @@ public class Robot extends TimedRobot {
     driveTrain = new DriveBase();
     intake = new Intake();
     index = new Index();
+    elevator = new Elevator();
     shooter = new Shooter();
     // Initialize OI Last
     oi = new OI();

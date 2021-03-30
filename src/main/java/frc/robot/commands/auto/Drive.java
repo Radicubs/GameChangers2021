@@ -33,6 +33,7 @@ public class Drive extends Command {
 
     @Override
     public void end() {
+        Robot.driveTrain.drive(0, 0, 0, 0);
     }
 
     @Override

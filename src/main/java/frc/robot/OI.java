@@ -20,6 +20,7 @@ public class OI {
     xButton.whenPressed(new IntakeState());
     yButton.whenPressed(new IndexState());
     bButton.whenPressed(new ShooterState());
+    bButton.whenPressed(new ElevatorState());
     ;
   }
 }
