@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -12,7 +12,8 @@ public class RotationAlignment extends Command {
   private boolean rotationFinished = false;
 
   @Override
-  protected void initialize() {}
+  protected void initialize() {
+  }
 
   @Override
   protected void execute() {
@@ -35,7 +36,8 @@ public class RotationAlignment extends Command {
   }
 
   @Override
-  protected void end() {}
+  protected void end() {
+  }
 
   @Override
   protected void interrupted() {

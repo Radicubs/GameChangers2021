@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -12,7 +12,8 @@ public class EnableShooter extends Command {
   }
 
   @Override
-  protected void initialize() {}
+  protected void initialize() {
+  }
 
   @Override
   protected void execute() {

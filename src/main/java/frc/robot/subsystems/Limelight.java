@@ -5,7 +5,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.UpdateLimelight;
+import frc.robot.commands.init.UpdateLimelight;
 
 public class Limelight extends Subsystem {
 
@@ -143,7 +143,8 @@ public class Limelight extends Subsystem {
       // If a key has been set before checking this, the size will not be zero
       limeLightConnected = false;
     } else {
-      if (!limeLightConnected) limeLightConnected = true;
+      if (!limeLightConnected)
+        limeLightConnected = true;
     }
     return limeLightConnected;
   }

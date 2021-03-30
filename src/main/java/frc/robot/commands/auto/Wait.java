@@ -1,16 +1,19 @@
-package frc.robot.commands;
+package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Wait extends Command {
   @Override
-  protected void initialize() {}
+  protected void initialize() {
+  }
 
   @Override
-  protected void end() {}
+  protected void end() {
+  }
 
   @Override
-  protected void execute() {}
+  protected void execute() {
+  }
 
   @Override
   protected void interrupted() {

@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.init;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.command.Command;
@@ -33,7 +33,8 @@ public class UpdateLimelight extends Command {
   }
 
   @Override
-  protected void end() {}
+  protected void end() {
+  }
 
   @Override
   protected void interrupted() {

@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
     table.addEntryListener("color", (table, key, entry, value, flags) -> {
       System.out.println("Color changed value: " + value.getValue());
       // add hook for Galactic Search command
-    }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+    }, EntryListenerFlags.kNew);
 
     inst = NetworkTableInstance.getDefault();
 
@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
     intake = new Intake();
     index = new Index();
     try {
-      // ahrs = new AHRS(SerialPort.Port.kUSB);
+      ahrs = new AHRS(SerialPort.Port.kUSB);
     } catch (RuntimeException ex) {
       DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
     }
@@ -90,15 +90,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    // String path = pathEntry.getString("AR");
-    /*
-     * autoSelected = (String) autoChooser.getSelected();
-     * System.out.println("Auto selected: " + autoSelected); switch (autoSelected) {
-     * case autoNavA: autonomous = new AutoNavA(); break; case autoNavB: autonomous
-     * = new AutoNavB(); break; default: break; } autonomous = new
-     * MecanumAuto("AutoNavA"); if (autonomous != null) { autonomous.start(); }
-     */
-
     table = inst.getTable("galacticsearch");
 
     table.addEntryListener("color", (table, key, entry, value, flags) -> {
@@ -109,20 +100,13 @@ public class Robot extends TimedRobot {
       // autonomous = new GalacticSearch("A", "blue");
       autonomous.start();
     }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    // switch (m_autoSelected) {
-    // case kCustomAuto:
-    // // Put custom auto code here
-    // break;
-    // case kDefaultAuto:
-    // default:
-    // // Put default auto code here
-    // break;
-    // }
+    Scheduler.getInstance().run();
   }
 
   /** This function is called once when teleop is enabled. */

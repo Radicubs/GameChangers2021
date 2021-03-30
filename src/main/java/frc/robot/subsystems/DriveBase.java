@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot.*;
 import frc.robot.RobotMap;
-import frc.robot.commands.*;
+import frc.robot.commands.init.*;
 
 public class DriveBase extends Subsystem {
 
@@ -108,6 +108,6 @@ public class DriveBase extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new MecanumDriver());
+    setDefaultCommand(new RunMecanum());
   }
 }

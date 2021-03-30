@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.init;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -39,7 +39,8 @@ public class RunElevator extends Command {
   }
 
   @Override
-  protected void end() {}
+  protected void end() {
+  }
 
   @Override
   protected void interrupted() {

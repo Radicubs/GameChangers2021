@@ -1,24 +1,24 @@
-package frc.robot.commands;
+package frc.robot.commands.init;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class RunIndex extends Command {
+public class RunShooter extends Command {
 
   private static double speed;
-  private static double indexState = 0.0;
+  private static double shooterState = 0.0;
   private static String dashboardState = "ON";
 
-  public RunIndex(double speed) {
-    requires(Robot.index);
+  public RunShooter(double speed) {
+    requires(Robot.shooter);
     this.speed = speed;
   }
 
   @Override
   protected void execute() {
     // speed *= intakeState;
-    Robot.index.indexIn(speed * indexState);
+    Robot.shooter.shootBall(speed * shooterState);
     SmartDashboard.putString("Intake State", dashboardState);
   }
 
@@ -28,18 +28,19 @@ public class RunIndex extends Command {
     return false;
   }
 
-  public static void indexOnOff() {
-    if (indexState == 1.0) {
-      indexState = 0.0;
+  public static void shooterOnOff() {
+    if (shooterState == 1.0) {
+      shooterState = 0.0;
       dashboardState = "OFF";
     } else {
-      indexState = 1.0;
+      shooterState = 1.0;
       dashboardState = "ON";
     }
   }
 
   @Override
-  protected void end() {}
+  protected void end() {
+  }
 
   @Override
   protected void interrupted() {
