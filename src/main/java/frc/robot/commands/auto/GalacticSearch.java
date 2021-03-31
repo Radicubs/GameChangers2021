@@ -21,6 +21,7 @@ public class GalacticSearch extends Command {
     private String path;
     private String color;
     private BezierFunction function;
+    private CoordinatePair initialPoint = new CoordinatePair(8.5, 23);
 
     public GalacticSearch(String path, String color) {
         requires(Robot.driveTrain);
@@ -28,44 +29,52 @@ public class GalacticSearch extends Command {
         this.color = color;
         if (this.path.equals("A")) {
             if (this.color.equals("red")) {
+                
+                BezierPoint navACp1 = new BezierPoint(17.4, 23.1);
+                BezierPoint navACp2 = new BezierPoint(32.6, 24.2);
+                BezierPoint navACp3 = new BezierPoint(41.5, -4);
+                BezierPoint navACp4 = new BezierPoint(44.7, 37.6); 
+                /*
                 BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
                 BezierPoint navACp2 = new BezierPoint(-27.3, 68);
                 BezierPoint navACp3 = new BezierPoint(34, -69);
-                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
-                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
-                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
+                BezierPoint navACp4 = new BezierPoint(6.7, 8.3); 
+                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5); */
+
+
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4 };
 
                 function = new BezierFunction(pointsArr);
             }
             if (this.color.equals("blue")) {
-                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
-                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
-                BezierPoint navACp3 = new BezierPoint(34, -69);
-                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
-                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
-                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
+                
+                BezierPoint navACp1 = new BezierPoint(17.4, 23.1);
+                BezierPoint navACp2 = new BezierPoint(32.6, 24.2);
+                BezierPoint navACp3 = new BezierPoint(41.5, -4);
+                BezierPoint navACp4 = new BezierPoint(44.7, 37.6); 
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4 };
 
                 function = new BezierFunction(pointsArr);
             }
         }
         if (this.path.equals("B")) {
             if (this.color.equals("red")) {
-                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
-                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
-                BezierPoint navACp3 = new BezierPoint(34, -69);
-                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
-                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
-                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
+                
+                BezierPoint navACp1 = new BezierPoint(17.4, 23.1);
+                BezierPoint navACp2 = new BezierPoint(32.6, 24.2);
+                BezierPoint navACp3 = new BezierPoint(41.5, -4);
+                BezierPoint navACp4 = new BezierPoint(44.7, 37.6); 
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4 };
 
                 function = new BezierFunction(pointsArr);
             }
             if (this.color.equals("blue")) {
-                BezierPoint navACp1 = new BezierPoint(41.5, -9.5);
-                BezierPoint navACp2 = new BezierPoint(-27.3, 68);
-                BezierPoint navACp3 = new BezierPoint(34, -69);
-                BezierPoint navACp4 = new BezierPoint(6.7, 8.3);
-                BezierPoint navACp5 = new BezierPoint(-29.8, -9.5);
-                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4, navACp5 };
+                
+                BezierPoint navACp1 = new BezierPoint(17.4, 23.1);
+                BezierPoint navACp2 = new BezierPoint(32.6, 24.2);
+                BezierPoint navACp3 = new BezierPoint(41.5, -4);
+                BezierPoint navACp4 = new BezierPoint(44.7, 37.6); 
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4 };
 
                 function = new BezierFunction(pointsArr);
             }
@@ -79,13 +88,28 @@ public class GalacticSearch extends Command {
     }
 
     private LinkedList<CoordinatePair> getPoints() {
-        System.out.println("meow");
+        // LINEAR BEFORE CURVE
         LinkedList<CoordinatePair> list = new LinkedList<CoordinatePair>();
         double t = 0;
         CoordinatePair lastPoint = getFunctionVal(t);
+        // lastPoint is actually the first point right here
+        double angle = Math.atan2((initialPoint.getY() - lastPoint.getY()), (initialPoint.getX() - lastPoint.getX()));
+        // double deltaY = initialPoint.getY() - lastPoint.getY();
+        // double deltaX = (initialPoint.getX() - lastPoint.getX());
+        double deltaY = Math.sin(angle) * 0.50;
+        double deltaX = Math.cos(angle) * 0.50;
+        CoordinatePair a = new CoordinatePair(initialPoint.getX(), initialPoint.getY());
+        double distance = Math.sqrt(Math.pow((lastPoint.getX() - initialPoint.getX()), 2) + Math.pow((lastPoint.getY() - initialPoint.getY()),2));
+        for (int i = 0; i < (int) (distance / 0.50); i++) {
+            a = new CoordinatePair(a.getX() - deltaX, a.getY() - deltaY);
+            list.add(a);
+        }
+
+        System.out.println("meow");
+        
         list.push(lastPoint);
         for (int p = 0; p < POINT_COUNT; p++) {
-            while (lastPoint.getDistance(getFunctionVal(t)) < 0.10 && t < 1) {
+            while (lastPoint.getDistance(getFunctionVal(t)) < 0.50 && t < 1) {
                 t += (0.001);
             }
             if (t > 1) {
@@ -110,7 +134,7 @@ public class GalacticSearch extends Command {
         x = function.getPos(t).getX();
         y = function.getPos(t).getY();
 
-        return new CoordinatePair(y, x);
+        return new CoordinatePair(-x, y);
     }
 
     @Override
@@ -126,11 +150,11 @@ public class GalacticSearch extends Command {
             double x = currentPair.getX() - previousPair.getX();
             // x *= 1.37;
             double y = (currentPair.getY() - previousPair.getY());
-            double angle = Math.atan2(x, y);
+            double angle = Math.atan2(y, x);
             angle = angle != Double.NaN ? angle : 0;
 
-            double turn = 0;
-// fix this drive code later
+            double turn = 0; /*
+            // fix this drive code later
             if (Math.abs(y) > 0.01 || Math.abs(x) > 0.01) {
               double angle_from_forward = Math.PI - (Math.PI / 2 - Math.atan2(y + 0.00001, x + 0.00001));
               if (angle_from_forward > Math.PI) {
@@ -144,7 +168,7 @@ public class GalacticSearch extends Command {
               double angle_error = -(gyro_angle - angle_from_forward);
               turn = angle_error / (5 * Math.PI);
               System.out.println((angle_error * (180 / Math.PI)));
-            }
+            } */
 
             double magnitude = 0.3;
 

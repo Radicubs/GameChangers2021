@@ -73,6 +73,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    init_angle = 0;
+    ahrs.setAngleAdjustment(-ahrs.getAngle());
+    init_angle = ahrs.getAngle();
     // String path = pathEntry.getString("AR");
     /*
     autoSelected = (String) autoChooser.getSelected();
@@ -93,7 +96,6 @@ public class Robot extends TimedRobot {
     } */
 
     table = inst.getTable("galacticsearch");
-
     table.addEntryListener(
         "color",
         (table, key, entry, value, flags) -> {
@@ -104,7 +106,14 @@ public class Robot extends TimedRobot {
           // autonomous = new GalacticSearch("A", "blue");
           autonomous.start();
         },
-        EntryListenerFlags.kNew);
+        EntryListenerFlags.kImmediate | EntryListenerFlags.kNew);
+
+    pathEntry = table.getEntry("path").getString("");
+    colorEntry = table.getEntry("color").getString("");
+
+    autonomous = new GalacticSearch(pathEntry, colorEntry);
+    // autonomous = new GalacticSearch("A", "blue");
+    autonomous.start();
 
     System.out.println("meow");
   }
