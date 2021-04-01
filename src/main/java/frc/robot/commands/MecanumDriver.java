@@ -30,8 +30,21 @@ public class MecanumDriver extends Command {
       double angle = Math.atan2(x, y);
       angle = angle != Double.NaN ? angle : 0;
 
-      angle += ((Robot.ahrs.getAngle() - Robot.init_angle) / (180)) * Math.PI;
+      if (Math.abs(y) > 0.01 || Math.abs(x) > 0.01) {
+        double angle_from_forward = Math.PI - (Math.PI / 2 - Math.atan2(y + 0.00001, x + 0.00001));
+        if (angle_from_forward > Math.PI) {
+          angle_from_forward -= Math.PI * 2;
+        }
 
+        double gyro_angle = ((Robot.ahrs.getAngle() - Robot.init_angle) / (180)) * Math.PI;
+        gyro_angle = gyro_angle % (2 * Math.PI);
+        // System.out.println(gyro_angle);
+        angle += gyro_angle;
+        double angle_error = -(gyro_angle - angle_from_forward);
+        turn = angle_error / (2 * Math.PI);
+        System.out.println(turn);
+        // System.out.println((angle_error * (180 / Math.PI)));
+      }
       double magnitude = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
       magnitude = magnitude < 1 ? magnitude : 1;
 
