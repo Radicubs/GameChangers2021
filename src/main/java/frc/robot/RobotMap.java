@@ -51,8 +51,8 @@ public class RobotMap {
 
   // SPARK MAX MOTOR CONTROLLERS
   public static final int INTAKE = 8;
-  public static final int INDEX_ONE = 9;
-  public static final int INDEX_TWO = 10;
+  public static final int INDEX_RIGHT = 9;
+  public static final int INDEX_LEFT = 10;
   public static final int ELEVATOR_BACK = 11;
   public static final int ELEVATOR_FRONT = 7;
 }

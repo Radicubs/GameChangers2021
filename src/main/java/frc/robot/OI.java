@@ -13,11 +13,11 @@ public class OI {
   public static Button bButton = new JoystickButton(controller, RobotMap.B_BUTTON);
 
   public OI() {
-    aButton.whenPressed(new DriveToggle());
-    xButton.whenPressed(new IntakeToggle());
-    yButton.whenPressed(new IndexToggle());
-    bButton.whenPressed(new ShooterToggle());
-    // bButton.whenPressed(new ElevatorToggle());
+    // aButton.whenPressed(new DriveToggle());
+    aButton.whenPressed(new IntakeToggle());
+    xButton.whenPressed(new IndexToggle());
+    yButton.whenPressed(new ShooterToggle());
+    // yButton.whenPressed(new ElevatorToggle());
 
   }
 }

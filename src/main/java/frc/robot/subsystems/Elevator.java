@@ -20,16 +20,17 @@ public class Elevator extends Subsystem {
 
     // Set Motors to default and neutral
     elevatorMotorBack.restoreFactoryDefaults();
-    elevatorMotorBack.restoreFactoryDefaults();
+    elevatorMotorFront.restoreFactoryDefaults();
   }
 
   public void elevatorUp(double speed) {
+    System.out.println(speed);
     elevatorMotorBack.set(speed);
-    elevatorMotorBack.set(-speed);
+    elevatorMotorFront.set(speed);
   }
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new RunElevator(speed));
+    setDefaultCommand(new RunElevator(this.speed));
   }
 }
