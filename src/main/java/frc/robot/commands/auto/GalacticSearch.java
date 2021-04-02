@@ -110,7 +110,7 @@ public class GalacticSearch extends Command {
         x = function.getPos(t).getX();
         y = function.getPos(t).getY();
 
-        return new CoordinatePair(x, y);
+        return new CoordinatePair(y, x);
     }
 
     @Override
@@ -126,14 +126,25 @@ public class GalacticSearch extends Command {
             double x = currentPair.getX() - previousPair.getX();
             // x *= 1.37;
             double y = (currentPair.getY() - previousPair.getY());
-            double angle = Math.atan2(y, x);
+            double angle = Math.atan2(x, y);
             angle = angle != Double.NaN ? angle : 0;
-            double turn = Math.sin(angle);
-            System.out.println(turn);
 
-            // Normalize Values
-            x = Math.cos(angle);
-            y = Math.sin(angle);
+            double turn = 0;
+// fix this drive code later
+            if (Math.abs(y) > 0.01 || Math.abs(x) > 0.01) {
+              double angle_from_forward = Math.PI - (Math.PI / 2 - Math.atan2(y + 0.00001, x + 0.00001));
+              if (angle_from_forward > Math.PI) {
+                angle_from_forward = -(angle_from_forward % Math.PI) - Math.PI / 2;
+              }
+      
+              double gyro_angle = ((Robot.ahrs.getAngle() - Robot.init_angle) / (180)) * Math.PI;
+              gyro_angle = gyro_angle % (2 * Math.PI);
+              // System.out.println(gyro_angle);
+              angle += gyro_angle;
+              double angle_error = -(gyro_angle - angle_from_forward);
+              turn = angle_error / (5 * Math.PI);
+              System.out.println((angle_error * (180 / Math.PI)));
+            }
 
             double magnitude = 0.3;
 

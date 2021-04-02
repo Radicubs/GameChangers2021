@@ -105,6 +105,8 @@ public class Robot extends TimedRobot {
           autonomous.start();
         },
         EntryListenerFlags.kNew);
+
+    System.out.println("meow");
   }
 
   /** This function is called periodically during autonomous. */

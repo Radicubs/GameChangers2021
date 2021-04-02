@@ -23,38 +23,12 @@ public class MecanumDriver extends Command {
       double x = Robot.oi.controller.getRawAxis(RobotMap.LEFT_X_AXIS);
       double turn = Robot.oi.controller.getRawAxis(RobotMap.RIGHT_X_AXIS);
 
-      // // clip to -1, 1
-      // if (y < -1) { y = -1; }
-      // else if (y > 1) { y = 1; }
-      // else if (y < 0.01 && y > -0.01) { y = 0; }
-
-      // if (x < -1) { x = -1; }
-      // else if (x > 1) { x = 1; }
-      // else if (x < 0.01 && x > -0.01) { x = 0; }
-
-      // if (turn < -1) { turn = -1; }
-      // else if (turn > 1) { turn = 1; }
-      // else if (turn < 0.01 && turn > -0.01) { turn = 0; }
-
       y *= driveMode;
       x *= driveMode;
+      turn *= driveMode / 2;
 
       double angle = Math.atan2(x, y);
-
       angle = angle != Double.NaN ? angle : 0;
-
-      System.out.println(angle);
-      System.out.println(Robot.ahrs.getAngle());
-      turn = Math.sin(Math.abs(angle) - Math.abs(Robot.ahrs.getAngle()));
-      if (x > 0) {
-        turn = Math.abs(turn);
-      }
-      if (x < 0) {
-        turn = -Math.abs(turn);
-      }
-      // double turn = 0; // Math.sin(Math.abs())
-
-      turn *= driveMode / 2;
 
       angle += ((Robot.ahrs.getAngle() - Robot.init_angle) / (180)) * Math.PI;
 
