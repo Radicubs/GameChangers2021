@@ -16,7 +16,7 @@ public class OI {
     // aButton.whenPressed(new DriveToggle());
     aButton.whenPressed(new IntakeToggle());
     xButton.whenPressed(new IndexToggle());
-    yButton.whenPressed(new ShooterToggle());
+    aButton.whenPressed(new ElevatorToggle());
     // yButton.whenPressed(new ElevatorToggle());
 
   }

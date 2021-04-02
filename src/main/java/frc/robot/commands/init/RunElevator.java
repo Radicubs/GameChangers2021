@@ -19,7 +19,7 @@ public class RunElevator extends Command {
   protected void execute() {
     // speed *= intakeState;
     Robot.elevator.elevatorUp(speed * elevatorState);
-    SmartDashboard.putString("Intake State", dashboardState);
+    SmartDashboard.putString("Elevator State", dashboardState);
   }
 
   @Override

@@ -2,35 +2,35 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.init.*;
+import frc.robot.commands.init.RunElevator;
 
 public class Elevator extends Subsystem {
-  private CANSparkMax elevatorMotorFront;
-  private CANSparkMax elevatorMotorBack;
+    private CANSparkMax elevatorBack;
+    private CANSparkMax elevatorFront;
 
-  private double speed = 0.25;
+    private double speed = 0.25;
 
-  public Elevator() {
+    public Elevator() {
+        elevatorBack = new CANSparkMax(RobotMap.ELEVATOR_BACK, MotorType.kBrushless);
+        elevatorFront = new CANSparkMax(RobotMap.ELEVATOR_FRONT, MotorType.kBrushless);
 
-    // constructor
-    elevatorMotorFront = new CANSparkMax(RobotMap.ELEVATOR_FRONT, MotorType.kBrushless);
-    elevatorMotorBack = new CANSparkMax(RobotMap.ELEVATOR_BACK, MotorType.kBrushless);
+        // Set Motors to default and neutral
+        elevatorBack.restoreFactoryDefaults();
+        elevatorFront.restoreFactoryDefaults();
 
-    // Set Motors to default and neutral
-    elevatorMotorBack.restoreFactoryDefaults();
-    elevatorMotorFront.restoreFactoryDefaults();
-  }
+    }
 
-  public void elevatorUp(double speed) {
-    System.out.println(speed);
-    elevatorMotorBack.set(speed);
-    elevatorMotorFront.set(speed);
-  }
+    public void elevatorUp(double speed) {
+        elevatorBack.set(-speed);
+        elevatorFront.set(speed / 2);
+    }
 
-  @Override
-  public void initDefaultCommand() {
-    setDefaultCommand(new RunElevator(this.speed));
-  }
+    @Override
+    public void initDefaultCommand() {
+        setDefaultCommand(new RunElevator(speed));
+    }
+
 }
