@@ -22,6 +22,7 @@ public class GalacticSearch extends Command {
     private String color;
     private BezierFunction function;
     private CoordinatePair initialPoint = new CoordinatePair(8.5, 23);
+    private static CoordinatePair endPoint = new CoordinatePair(82, 23);
 
     public GalacticSearch(String path, String color) {
         requires(Robot.driveTrain);
@@ -82,34 +83,36 @@ public class GalacticSearch extends Command {
     }
         
     // Called just before this Command runs the first time
-    @Override
+   
     protected void initialize() {
         points = getPoints();
     }
 
     private LinkedList<CoordinatePair> getPoints() {
-        // LINEAR BEFORE CURVE
-        LinkedList<CoordinatePair> list = new LinkedList<CoordinatePair>();
         double t = 0;
         CoordinatePair lastPoint = getFunctionVal(t);
+        
+        // LINEAR BEFORE CURVE
+        LinkedList<CoordinatePair> list = new LinkedList<CoordinatePair>();
+        
         // lastPoint is actually the first point right here
         double angle = Math.atan2((initialPoint.getY() - lastPoint.getY()), (initialPoint.getX() - lastPoint.getX()));
         // double deltaY = initialPoint.getY() - lastPoint.getY();
         // double deltaX = (initialPoint.getX() - lastPoint.getX());
-        double deltaY = Math.sin(angle) * 0.50;
-        double deltaX = Math.cos(angle) * 0.50;
+        double deltaY = Math.sin(angle) * 0.25;
+        double deltaX = Math.cos(angle) * 0.25;
         CoordinatePair a = new CoordinatePair(initialPoint.getX(), initialPoint.getY());
         double distance = Math.sqrt(Math.pow((lastPoint.getX() - initialPoint.getX()), 2) + Math.pow((lastPoint.getY() - initialPoint.getY()),2));
-        for (int i = 0; i < (int) (distance / 0.50); i++) {
+        for (int i = 0; i < (int) (distance / 0.25); i++) {
             a = new CoordinatePair(a.getX() - deltaX, a.getY() - deltaY);
             list.add(a);
-        }
+        } 
 
         System.out.println("meow");
         
         list.push(lastPoint);
         for (int p = 0; p < POINT_COUNT; p++) {
-            while (lastPoint.getDistance(getFunctionVal(t)) < 0.50 && t < 1) {
+            while (lastPoint.getDistance(getFunctionVal(t)) < 0.25 && t < 1) {
                 t += (0.001);
             }
             if (t > 1) {
@@ -117,6 +120,23 @@ public class GalacticSearch extends Command {
             }
             lastPoint = getFunctionVal(t);
             list.add(lastPoint);
+        }
+
+        // LINEAR AFTER CURVE
+        endPoint = new CoordinatePair(endPoint.getX(), lastPoint.getY());
+        //lastPoint = new CoordinatePair(lastPoint.getX(), lastPoint.getY());
+
+        // lastPoint is actually the first point right here
+        angle = Math.atan2((lastPoint.getY() - endPoint.getY()), (lastPoint.getX() - endPoint.getX()));
+        // double deltaY = initialPoint.getY() - lastPoint.getY();
+        // double deltaX = (initialPoint.getX() - lastPoint.getX());
+        deltaY = Math.sin(angle) * 0.25;
+        deltaX = Math.cos(angle) * 0.25;
+        a = new CoordinatePair(lastPoint.getX(), lastPoint.getY());
+        distance = Math.sqrt(Math.pow((endPoint.getX() - lastPoint.getX()), 2) + Math.pow((endPoint.getY() - lastPoint.getY()),2));
+        for (int i = 0; i < (int) (distance / 0.25); i++) {
+            a = new CoordinatePair(a.getX() - deltaX, a.getY() - deltaY);
+            list.add(a);
         }
 
         /*
@@ -134,7 +154,7 @@ public class GalacticSearch extends Command {
         x = function.getPos(t).getX();
         y = function.getPos(t).getY();
 
-        return new CoordinatePair(-x, y);
+        return new CoordinatePair(x, y);
     }
 
     @Override
@@ -150,10 +170,11 @@ public class GalacticSearch extends Command {
             double x = currentPair.getX() - previousPair.getX();
             // x *= 1.37;
             double y = (currentPair.getY() - previousPair.getY());
-            double angle = Math.atan2(y, x);
+            double angle = Math.atan2(-y, -x);
             angle = angle != Double.NaN ? angle : 0;
 
-            double turn = 0; /*
+            double turn = 0; 
+            /*
             // fix this drive code later
             if (Math.abs(y) > 0.01 || Math.abs(x) > 0.01) {
               double angle_from_forward = Math.PI - (Math.PI / 2 - Math.atan2(y + 0.00001, x + 0.00001));
@@ -166,7 +187,7 @@ public class GalacticSearch extends Command {
               // System.out.println(gyro_angle);
               angle += gyro_angle;
               double angle_error = -(gyro_angle - angle_from_forward);
-              turn = angle_error / (5 * Math.PI);
+              turn = angle_error / (1 * Math.PI);
               System.out.println((angle_error * (180 / Math.PI)));
             } */
 

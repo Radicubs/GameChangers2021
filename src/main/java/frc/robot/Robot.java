@@ -95,6 +95,7 @@ public class Robot extends TimedRobot {
       autonomous.start();
     } */
 
+    /*
     table = inst.getTable("galacticsearch");
     table.addEntryListener(
         "color",
@@ -107,12 +108,12 @@ public class Robot extends TimedRobot {
           autonomous.start();
         },
         EntryListenerFlags.kImmediate | EntryListenerFlags.kNew);
+    */
+    // pathEntry = table.getEntry("path").getString("");
+    // colorEntry = table.getEntry("color").getString("");
 
-    pathEntry = table.getEntry("path").getString("");
-    colorEntry = table.getEntry("color").getString("");
-
-    autonomous = new GalacticSearch(pathEntry, colorEntry);
-    // autonomous = new GalacticSearch("A", "blue");
+    // autonomous = new GalacticSearch(pathEntry, colorEntry);
+    autonomous = new GalacticSearch("A", "blue");
     autonomous.start();
 
     System.out.println("meow");
