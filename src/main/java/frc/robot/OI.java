@@ -11,12 +11,14 @@ public class OI {
   public static Button xButton = new JoystickButton(controller, RobotMap.X_BUTTON);
   public static Button yButton = new JoystickButton(controller, RobotMap.Y_BUTTON);
   public static Button bButton = new JoystickButton(controller, RobotMap.B_BUTTON);
+  public static Button rbButton = new JoystickButton(controller, RobotMap.RB_BUTTON);
 
   public OI() {
     // aButton.whenPressed(new DriveToggle());
     aButton.whenPressed(new IntakeToggle());
     xButton.whenPressed(new IndexToggle());
-    aButton.whenPressed(new ElevatorToggle());
+    yButton.whenPressed(new ShooterToggle());
+    rbButton.whenPressed(new ResetGyro());
     // yButton.whenPressed(new ElevatorToggle());
 
   }
