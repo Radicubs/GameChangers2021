@@ -7,7 +7,7 @@ public class RunColorSensor extends Command {
 
     public RunColorSensor() {
         requires(Robot.colorSensor);
-        requires(Robot.elevator);
+        // requires(Robot.elevator);
     }
 
     // Time to Run command (use it for distance as well)
@@ -18,11 +18,11 @@ public class RunColorSensor extends Command {
 
     @Override
     protected void execute() {
-        if (Robot.colorSensor.foundBall()) {
-            Robot.elevator.elevatorUp(.4);
-        } else {
-            Robot.elevator.elevatorUp(0);
-        }
+        // if (Robot.colorSensor.foundBall()) {
+        // Robot.elevator.elevatorUp(.4);
+        // } else {
+        // Robot.elevator.elevatorUp(0);
+        // }
     }
 
     @Override

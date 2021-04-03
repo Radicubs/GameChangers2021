@@ -11,7 +11,7 @@ public class Elevator extends Subsystem {
     private CANSparkMax elevatorBack;
     private CANSparkMax elevatorFront;
 
-    private double speed = 0.25;
+    private double speed = 0.75;
 
     public Elevator() {
         elevatorBack = new CANSparkMax(RobotMap.ELEVATOR_BACK, MotorType.kBrushless);
@@ -20,11 +20,10 @@ public class Elevator extends Subsystem {
         // Set Motors to default and neutral
         elevatorBack.restoreFactoryDefaults();
         elevatorFront.restoreFactoryDefaults();
-
     }
 
     public void elevatorUp(double speed) {
-        elevatorBack.set(-0.5);
+        elevatorBack.set(-speed);
         elevatorFront.set(speed / 2);
     }
 
