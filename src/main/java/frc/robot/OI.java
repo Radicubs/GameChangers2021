@@ -20,6 +20,5 @@ public class OI {
     yButton.whenPressed(new ShooterToggle());
     rbButton.whenPressed(new ResetGyro());
     bButton.whenPressed(new ElevatorToggle());
-
   }
 }

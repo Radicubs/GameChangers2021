@@ -143,8 +143,7 @@ public class Limelight extends Subsystem {
       // If a key has been set before checking this, the size will not be zero
       limeLightConnected = false;
     } else {
-      if (!limeLightConnected)
-        limeLightConnected = true;
+      if (!limeLightConnected) limeLightConnected = true;
     }
     return limeLightConnected;
   }

@@ -10,34 +10,35 @@ import frc.robot.commands.init.RunColorSensor;
 
 public class ColorSensor extends Subsystem {
 
-    I2C.Port i2cPort = I2C.Port.kOnboard;
-    ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
+  I2C.Port i2cPort = I2C.Port.kOnboard;
+  ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
 
-    private final ColorMatch colorMatcher = new ColorMatch();
-    private final Color yellowTarget = ColorMatch.makeColor(0.330, 0.5417, 0.108); // Needs Calibration
-    Color detectedColor;
-    ColorMatchResult match;
-    private boolean intakeOn;
+  private final ColorMatch colorMatcher = new ColorMatch();
+  private final Color yellowTarget =
+      ColorMatch.makeColor(0.330, 0.5417, 0.108); // Needs Calibration
+  Color detectedColor;
+  ColorMatchResult match;
+  private boolean intakeOn;
 
-    double redAmount, greenAmount, blueAmount;
-    boolean redTrue, greenTrue, blueTrue;
+  double redAmount, greenAmount, blueAmount;
+  boolean redTrue, greenTrue, blueTrue;
 
-    public ColorSensor() {
-        i2cPort = I2C.Port.kOnboard;
-        colorSensor = new ColorSensorV3(i2cPort);
-        colorMatcher.addColorMatch(yellowTarget);
-    }
+  public ColorSensor() {
+    i2cPort = I2C.Port.kOnboard;
+    colorSensor = new ColorSensorV3(i2cPort);
+    colorMatcher.addColorMatch(yellowTarget);
+  }
 
-    public boolean foundBall() {
-        detectedColor = colorSensor.getColor();
-        redTrue = Math.abs(detectedColor.red - yellowTarget.red) < .07;
-        greenTrue = Math.abs(detectedColor.green - yellowTarget.green) < .07;
-        blueTrue = Math.abs(detectedColor.blue - yellowTarget.blue) < .07;
-        return redTrue && greenTrue && blueTrue;
-    }
+  public boolean foundBall() {
+    detectedColor = colorSensor.getColor();
+    redTrue = Math.abs(detectedColor.red - yellowTarget.red) < .07;
+    greenTrue = Math.abs(detectedColor.green - yellowTarget.green) < .07;
+    blueTrue = Math.abs(detectedColor.blue - yellowTarget.blue) < .07;
+    return redTrue && greenTrue && blueTrue;
+  }
 
-    @Override
-    public void initDefaultCommand() {
-        setDefaultCommand(new RunColorSensor());
-    }
+  @Override
+  public void initDefaultCommand() {
+    setDefaultCommand(new RunColorSensor());
+  }
 }

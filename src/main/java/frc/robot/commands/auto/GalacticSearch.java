@@ -7,6 +7,7 @@ import java.util.Stack;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.commands.toggles.IntakeToggle;
 import frc.robot.util.BezierFunction;
 import frc.robot.util.BezierPoint;
 import frc.robot.util.CoordinatePair;
@@ -25,6 +26,8 @@ public class GalacticSearch extends Command {
     private static CoordinatePair endPoint = new CoordinatePair(82, 23);
 
     public GalacticSearch(String path, String color) {
+        IntakeToggle toggle = new IntakeToggle();
+        toggle.start();
         requires(Robot.driveTrain);
         this.path = path;
         this.color = color;
@@ -99,11 +102,11 @@ public class GalacticSearch extends Command {
         double angle = Math.atan2((initialPoint.getY() - lastPoint.getY()), (initialPoint.getX() - lastPoint.getX()));
         // double deltaY = initialPoint.getY() - lastPoint.getY();
         // double deltaX = (initialPoint.getX() - lastPoint.getX());
-        double deltaY = Math.sin(angle) * 0.25;
-        double deltaX = Math.cos(angle) * 0.25;
+        double deltaY = Math.sin(angle) * 0.20;
+        double deltaX = Math.cos(angle) * 0.20;
         CoordinatePair a = new CoordinatePair(initialPoint.getX(), initialPoint.getY());
         double distance = Math.sqrt(Math.pow((lastPoint.getX() - initialPoint.getX()), 2) + Math.pow((lastPoint.getY() - initialPoint.getY()),2));
-        for (int i = 0; i < (int) (distance / 0.25); i++) {
+        for (int i = 0; i < (int) (distance / 0.20); i++) {
             a = new CoordinatePair(a.getX() - deltaX, a.getY() - deltaY);
             list.add(a);
         } 
@@ -112,7 +115,7 @@ public class GalacticSearch extends Command {
         
         list.push(lastPoint);
         for (int p = 0; p < POINT_COUNT; p++) {
-            while (lastPoint.getDistance(getFunctionVal(t)) < 0.25 && t < 1) {
+            while (lastPoint.getDistance(getFunctionVal(t)) < 0.20 && t < 1) {
                 t += (0.001);
             }
             if (t > 1) {
@@ -130,11 +133,11 @@ public class GalacticSearch extends Command {
         angle = Math.atan2((lastPoint.getY() - endPoint.getY()), (lastPoint.getX() - endPoint.getX()));
         // double deltaY = initialPoint.getY() - lastPoint.getY();
         // double deltaX = (initialPoint.getX() - lastPoint.getX());
-        deltaY = Math.sin(angle) * 0.25;
-        deltaX = Math.cos(angle) * 0.25;
+        deltaY = Math.sin(angle) * 0.20;
+        deltaX = Math.cos(angle) * 0.20;
         a = new CoordinatePair(lastPoint.getX(), lastPoint.getY());
         distance = Math.sqrt(Math.pow((endPoint.getX() - lastPoint.getX()), 2) + Math.pow((endPoint.getY() - lastPoint.getY()),2));
-        for (int i = 0; i < (int) (distance / 0.25); i++) {
+        for (int i = 0; i < (int) (distance / 0.20); i++) {
             a = new CoordinatePair(a.getX() - deltaX, a.getY() - deltaY);
             list.add(a);
         }

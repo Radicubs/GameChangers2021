@@ -46,6 +46,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     autoChooser.setDefaultOption("AutoNav A", autoNavA);
     autoChooser.addOption("AutoNav B", autoNavB);
+    autoChooser.addOption("Galactic Search", "Galactic Search");
     SmartDashboard.putData("Auto Choices", autoChooser);
     SmartDashboard.updateValues();
 
@@ -57,10 +58,13 @@ public class Robot extends TimedRobot {
     inst = NetworkTableInstance.getDefault();
     table = inst.getTable("galacticsearch");
 
-    table.addEntryListener("color", (table, key, entry, value, flags) -> {
-      System.out.println("Color changed value: " + value.getValue());
-      // add hook for Galactic Search command
-    }, EntryListenerFlags.kNew);
+    table.addEntryListener(
+        "color",
+        (table, key, entry, value, flags) -> {
+          System.out.println("Color changed value: " + value.getValue());
+          // add hook for Galactic Search command
+        },
+        EntryListenerFlags.kNew);
 
     inst = NetworkTableInstance.getDefault();
 
@@ -96,42 +100,37 @@ public class Robot extends TimedRobot {
     autoSelected = (String) autoChooser.getSelected();
     System.out.println("Auto selected: " + autoSelected);
     switch (autoSelected) {
-      case autoNavA:
+      case "AutoNav A":
         autonomous = new AutoNavA();
         break;
-      case autoNavB:
+      case "AutoNav B":
         autonomous = new AutoNavB();
         break;
-      default:
+      case "Galactic Search":
+        table = inst.getTable("galacticsearch");
+        table.addEntryListener(
+            "color",
+            (table, key, entry, value, flags) -> {
+              pathEntry = table.getEntry("path").getString("");
+              colorEntry = table.getEntry("color").getString("");
+
+              autonomous = new GalacticSearch(pathEntry, colorEntry);
+              // autonomous = new GalacticSearch("A", "blue");
+              autonomous.start();
+            },
+            EntryListenerFlags.kImmediate | EntryListenerFlags.kNew);
+
+        // pathEntry = table.getEntry("path").getString("");
+        // colorEntry = table.getEntry("color").getString("");
+
+        // autonomous = new GalacticSearch(pathEntry, colorEntry);
+        autonomous = new GalacticSearch("A", "blue");
+        autonomous.start();
         break;
-    }
-    autonomous = new MecanumAuto("AutoNavA");
-    if (autonomous != null) {
-      autonomous.start();
     } */
-
-    /*
-    table = inst.getTable("galacticsearch");
-    table.addEntryListener(
-        "color",
-        (table, key, entry, value, flags) -> {
-          pathEntry = table.getEntry("path").getString("");
-          colorEntry = table.getEntry("color").getString("");
-
-          autonomous = new GalacticSearch(pathEntry, colorEntry);
-          // autonomous = new GalacticSearch("A", "blue");
-          autonomous.start();
-        },
-        EntryListenerFlags.kImmediate | EntryListenerFlags.kNew);
-    */
-    // pathEntry = table.getEntry("path").getString("");
-    // colorEntry = table.getEntry("color").getString("");
-
-    // autonomous = new GalacticSearch(pathEntry, colorEntry);
+    System.out.println("meow");
     autonomous = new GalacticSearch("A", "blue");
     autonomous.start();
-
-    System.out.println("meow");
   }
 
   /** This function is called periodically during autonomous. */
@@ -155,6 +154,11 @@ public class Robot extends TimedRobot {
     init_angle = 0;
     ahrs.setAngleAdjustment(-ahrs.getAngle());
     init_angle = ahrs.getAngle();
+
+    if (autonomous != null) {
+      autonomous.cancel();
+    }
+    autonomous = null;
   }
 
   /** This function is called periodically during operator control. */
