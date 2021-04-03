@@ -9,8 +9,6 @@ import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.DriverStation;
-import com.kauailabs.navx.frc.*;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -30,7 +28,7 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> autoChooser = new SendableChooser<>();
   private static final String autoNavA = "AutoNav A";
   private static final String autoNavB = "AutoNav B";
-
+  public static AHRS ahrs;
   public static double init_angle = 0;
 
   private NetworkTable table;
@@ -39,8 +37,6 @@ public class Robot extends TimedRobot {
   private String colorEntry;
 
   private Command autonomous;
-
-  public static AHRS ahrs;
 
   @Override
   public void robotInit() {
@@ -61,7 +57,7 @@ public class Robot extends TimedRobot {
     intake = new Intake();
     index = new Index();
     try {
-      // ahrs = new AHRS(SerialPort.Port.kUSB);
+      ahrs = new AHRS(SerialPort.Port.kUSB);
     } catch (RuntimeException ex) {
       DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
     }
@@ -77,30 +73,56 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    init_angle = 0;
+    ahrs.setAngleAdjustment(-ahrs.getAngle());
+    init_angle = ahrs.getAngle();
     // String path = pathEntry.getString("AR");
     /*
-     * autoSelected = (String) autoChooser.getSelected();
-     * System.out.println("Auto selected: " + autoSelected); switch (autoSelected) {
-     * case autoNavA: autonomous = new AutoNavA(); break; case autoNavB: autonomous
-     * = new AutoNavB(); break; default: break; } autonomous = new
-     * MecanumAuto("AutoNavA"); if (autonomous != null) { autonomous.start(); }
-     */
-
-    table = inst.getTable("galacticsearch");
-
-    table.addEntryListener("color", (table, key, entry, value, flags) -> {
-      pathEntry = table.getEntry("path").getString("");
-      colorEntry = table.getEntry("color").getString("");
-
-      autonomous = new GalacticSearch(pathEntry, colorEntry);
-      // autonomous = new GalacticSearch("A", "blue");
+    autoSelected = (String) autoChooser.getSelected();
+    System.out.println("Auto selected: " + autoSelected);
+    switch (autoSelected) {
+      case autoNavA:
+        autonomous = new AutoNavA();
+        break;
+      case autoNavB:
+        autonomous = new AutoNavB();
+        break;
+      default:
+        break;
+    }
+    autonomous = new MecanumAuto("AutoNavA");
+    if (autonomous != null) {
       autonomous.start();
-    }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+    } */
+
+    /*
+    table = inst.getTable("galacticsearch");
+    table.addEntryListener(
+        "color",
+        (table, key, entry, value, flags) -> {
+          pathEntry = table.getEntry("path").getString("");
+          colorEntry = table.getEntry("color").getString("");
+
+          autonomous = new GalacticSearch(pathEntry, colorEntry);
+          // autonomous = new GalacticSearch("A", "blue");
+          autonomous.start();
+        },
+        EntryListenerFlags.kImmediate | EntryListenerFlags.kNew);
+    */
+    // pathEntry = table.getEntry("path").getString("");
+    // colorEntry = table.getEntry("color").getString("");
+
+    // autonomous = new GalacticSearch(pathEntry, colorEntry);
+    autonomous = new GalacticSearch("A", "blue");
+    autonomous.start();
+
+    System.out.println("meow");
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    Scheduler.getInstance().run();
     // switch (m_autoSelected) {
     // case kCustomAuto:
     // // Put custom auto code here
@@ -115,6 +137,8 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
+    init_angle = 0;
+    ahrs.setAngleAdjustment(-ahrs.getAngle());
     init_angle = ahrs.getAngle();
   }
 
@@ -126,18 +150,15 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {
-  }
+  public void disabledInit() {}
 
   /** This function is called periodically when disabled. */
   @Override
-  public void disabledPeriodic() {
-  }
+  public void disabledPeriodic() {}
 
   /** This function is called once when test mode is enabled. */
   @Override
-  public void testInit() {
-  }
+  public void testInit() {}
 
   /** This function is called periodically during test mode. */
   @Override
