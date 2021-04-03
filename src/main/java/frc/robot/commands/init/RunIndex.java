@@ -6,7 +6,7 @@ import frc.robot.Robot;
 
 public class RunIndex extends Command {
 
-  private static double speed;
+  private double speed;
   private static double indexState = 0.0;
   private static String dashboardState = "ON";
 

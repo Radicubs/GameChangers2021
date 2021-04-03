@@ -6,7 +6,7 @@ import frc.robot.Robot;
 
 public class RunShooter extends Command {
 
-  private static double speed;
+  private double speed;
   private static double shooterState = 0.0;
   private static String dashboardState = "ON";
 

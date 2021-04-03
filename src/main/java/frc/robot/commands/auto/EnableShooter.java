@@ -17,7 +17,7 @@ public class EnableShooter extends Command {
 
   @Override
   protected void execute() {
-    Robot.elevator.elevatorUp(0.8);
+    // Robot.elevator.elevatorUp(0.8);
     Robot.index.indexIn(0.8);
     Robot.shooter.shootBall(0.8);
   }
@@ -29,7 +29,7 @@ public class EnableShooter extends Command {
 
   @Override
   protected void end() {
-    Robot.elevator.elevatorUp(0);
+    // Robot.elevator.elevatorUp(0);
     Robot.index.indexIn(0);
     Robot.shooter.shootBall(0);
   }

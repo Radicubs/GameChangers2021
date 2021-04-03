@@ -24,7 +24,7 @@ public class Elevator extends Subsystem {
     }
 
     public void elevatorUp(double speed) {
-        elevatorBack.set(-speed);
+        elevatorBack.set(-0.5);
         elevatorFront.set(speed / 2);
     }
 

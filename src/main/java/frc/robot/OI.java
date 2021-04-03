@@ -19,7 +19,7 @@ public class OI {
     xButton.whenPressed(new IndexToggle());
     yButton.whenPressed(new ShooterToggle());
     rbButton.whenPressed(new ResetGyro());
-    // yButton.whenPressed(new ElevatorToggle());
+    bButton.whenPressed(new ElevatorToggle());
 
   }
 }

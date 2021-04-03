@@ -69,6 +69,7 @@ public class Robot extends TimedRobot {
     inst = NetworkTableInstance.getDefault();
 
     driveTrain = new DriveBase();
+    elevator = new Elevator();
     intake = new Intake();
     index = new Index();
     try {
@@ -76,7 +77,6 @@ public class Robot extends TimedRobot {
     } catch (RuntimeException ex) {
       DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
     }
-    elevator = new Elevator();
     shooter = new Shooter();
     limeLight = new Limelight();
     colorSensor = new ColorSensor();
