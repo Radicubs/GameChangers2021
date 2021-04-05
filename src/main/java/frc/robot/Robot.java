@@ -129,7 +129,7 @@ public class Robot extends TimedRobot {
         break;
     } */
     System.out.println("meow");
-    autonomous = new GalacticSearch("A", "blue");
+    autonomous = new GalacticSearch("B", "red");
     autonomous.start();
   }
 

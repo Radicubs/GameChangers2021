@@ -92,7 +92,7 @@ public class MecanumAuto extends Command {
             if (previousPair == null) {
                 previousPair = points.remove();
             }
-            System.out.println(currentPair);
+            // System.out.println(currentPair);
 
             double x = currentPair.getX() - previousPair.getX();
             double y = (currentPair.getY() - previousPair.getY());

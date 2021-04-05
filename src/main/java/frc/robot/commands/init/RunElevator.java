@@ -17,7 +17,7 @@ public class RunElevator extends Command {
 
   @Override
   protected void execute() {
-    System.out.println(speed * elevatorState);
+    // System.out.println(speed * elevatorState);
     Robot.elevator.elevatorUp(speed * elevatorState);
   }
 
