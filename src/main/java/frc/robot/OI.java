@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.auto.*;
 import frc.robot.commands.toggles.*;
 
 public class OI {
@@ -12,6 +13,7 @@ public class OI {
   public static Button yButton = new JoystickButton(controller, RobotMap.Y_BUTTON);
   public static Button bButton = new JoystickButton(controller, RobotMap.B_BUTTON);
   public static Button rbButton = new JoystickButton(controller, RobotMap.RB_BUTTON);
+  public static Button lbButton = new JoystickButton(controller, RobotMap.LB_BUTTON);
 
   public OI() {
     // aButton.whenPressed(new DriveToggle());
@@ -19,6 +21,7 @@ public class OI {
     xButton.whenPressed(new IndexToggle());
     yButton.whenPressed(new ShooterToggle());
     rbButton.whenPressed(new ResetGyro());
+    lbButton.whenPressed(new RotationAlignment());
     bButton.whenPressed(new ElevatorToggle());
   }
 }

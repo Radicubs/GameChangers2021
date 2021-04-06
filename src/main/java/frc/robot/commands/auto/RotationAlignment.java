@@ -20,10 +20,10 @@ public class RotationAlignment extends Command {
 
     // Drive!
     // Robot.driveBase.drive(-0.1, 0.1);
-    System.out.println(Robot.limeLight.getTable().getEntry("tx").getDouble(0.0));
     double x = Robot.limeLight.getTable().getEntry("tx").getDouble(0.0);
-    if (Math.abs(x) > 3) {
-      Robot.driveTrain.drive(-x / 100, -x / 100, x / 100, x / 100);
+    System.out.println(Robot.limeLight.getTable().getEntry("tx").getDouble(0.0));
+    if (Math.abs(x) > 8) {
+      Robot.driveTrain.drive(x / 50, x / 50, x / 50, x / 50);
     } else {
       rotationFinished = true;
     }
@@ -37,6 +37,8 @@ public class RotationAlignment extends Command {
 
   @Override
   protected void end() {
+    Robot.driveTrain.drive(0,0,0,0);
+    rotationFinished = false;
   }
 
   @Override
