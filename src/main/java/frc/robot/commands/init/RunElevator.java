@@ -17,7 +17,11 @@ public class RunElevator extends Command {
 
   @Override
   protected void execute() {
-    Robot.elevator.elevatorUp(speed * elevatorState);
+    if (Robot.colorSensor.foundBall()) {
+      Robot.elevator.elevatorUp(0.1);
+    } else if (elevatorState == 1.0) {
+      Robot.elevator.elevatorUp(speed);
+    }
   }
 
   @Override

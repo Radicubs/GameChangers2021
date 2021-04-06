@@ -23,7 +23,7 @@ public class RotationAlignment extends Command {
     double x = Robot.limeLight.getTable().getEntry("tx").getDouble(0.0);
     System.out.println(Robot.limeLight.getTable().getEntry("tx").getDouble(0.0));
     if (Math.abs(x) > 8) {
-      Robot.driveTrain.drive(x / 50, x / 50, x / 50, x / 50);
+      Robot.driveTrain.drive(x / 60, x / 60, x / 60, x / 60);
     } else {
       rotationFinished = true;
     }
