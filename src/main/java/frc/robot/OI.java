@@ -21,7 +21,7 @@ public class OI {
     xButton.whenPressed(new IndexToggle());
     yButton.whenPressed(new ShooterToggle());
     rbButton.whenPressed(new ResetGyro());
-    lbButton.whenPressed(new RotationAlignment());
+    lbButton.whenPressed(new TurnAndShoot());
     bButton.whenPressed(new ElevatorToggle());
   }
 }
