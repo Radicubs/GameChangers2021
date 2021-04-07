@@ -122,6 +122,8 @@ public class Robot extends TimedRobot {
     autonomous.start();
 
     System.out.println("meow");
+    autonomous = new GalacticSearch("B", "red");
+    autonomous.start();
   }
 
   /** This function is called periodically during autonomous. */
