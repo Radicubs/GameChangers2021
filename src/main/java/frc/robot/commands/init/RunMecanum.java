@@ -47,7 +47,7 @@ public class RunMecanum extends Command {
 
   public static void changeDriveMode() {
     if (driveMode == 0.5) {
-      driveMode = 1;
+      driveMode = 0.7;
     } else {
       driveMode = 0.5;
     }
