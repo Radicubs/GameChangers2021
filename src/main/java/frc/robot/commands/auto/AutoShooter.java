@@ -15,7 +15,7 @@ public class AutoShooter extends Command {
 
   @Override
   protected void execute() {
-    Robot.shooter.shootBall(-0.8);
+    Robot.shooter.shootBall(0.8 * -11500 / 0.55);
   }
 
   @Override
