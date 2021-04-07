@@ -58,6 +58,12 @@ public class GalacticSearch extends Command {
                 BezierPoint navACp4 = new BezierPoint(44.7, 37.6); 
                 BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4 };
 
+                BezierPoint navACp1 = new BezierPoint(17.4, 23.1);
+                BezierPoint navACp2 = new BezierPoint(32.6, 24.2);
+                BezierPoint navACp3 = new BezierPoint(41.5, -4);
+                BezierPoint navACp4 = new BezierPoint(44.7, 37.6);
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4 };
+
                 function = new BezierFunction(pointsArr);
             }
         }
@@ -70,6 +76,12 @@ public class GalacticSearch extends Command {
                 BezierPoint navACp4 = new BezierPoint(44.7, 37.6); 
                 BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4 };
 
+                BezierPoint navACp1 = new BezierPoint(17.4, 23.1);
+                BezierPoint navACp2 = new BezierPoint(32.6, 24.2);
+                BezierPoint navACp3 = new BezierPoint(41.5, -4);
+                BezierPoint navACp4 = new BezierPoint(44.7, 37.6);
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4 };
+
                 function = new BezierFunction(pointsArr);
             }
             if (this.color.equals("blue")) {
@@ -80,11 +92,17 @@ public class GalacticSearch extends Command {
                 BezierPoint navACp4 = new BezierPoint(44.7, 37.6); 
                 BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4 };
 
+                BezierPoint navACp1 = new BezierPoint(17.4, 23.1);
+                BezierPoint navACp2 = new BezierPoint(32.6, 24.2);
+                BezierPoint navACp3 = new BezierPoint(41.5, -4);
+                BezierPoint navACp4 = new BezierPoint(44.7, 37.6);
+                BezierPoint[] pointsArr = { navACp1, navACp2, navACp3, navACp4 };
+
                 function = new BezierFunction(pointsArr);
             }
         }
     }
-        
+
     // Called just before this Command runs the first time
    
     protected void initialize() {
