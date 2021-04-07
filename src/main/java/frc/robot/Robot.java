@@ -58,13 +58,10 @@ public class Robot extends TimedRobot {
     inst = NetworkTableInstance.getDefault();
     table = inst.getTable("galacticsearch");
 
-    table.addEntryListener(
-        "color",
-        (table, key, entry, value, flags) -> {
-          System.out.println("Color changed value: " + value.getValue());
-          // add hook for Galactic Search command
-        },
-        EntryListenerFlags.kNew);
+    table.addEntryListener("color", (table, key, entry, value, flags) -> {
+      System.out.println("Color changed value: " + value.getValue());
+      // add hook for Galactic Search command
+    }, EntryListenerFlags.kNew);
 
     inst = NetworkTableInstance.getDefault();
 
@@ -88,6 +85,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     // System.out.println("Angle");
     // System.out.println((ahrs.getAngle() - init_angle) % 360);
+    System.out.println(Robot.limeLight.calculateDistance());
   }
 
   @Override
