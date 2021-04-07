@@ -3,11 +3,9 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class EnableShooter extends Command {
+public class AutoShooter extends Command {
 
-  public EnableShooter() {
-    requires(Robot.elevator);
-    requires(Robot.index);
+  public AutoShooter() {
     requires(Robot.shooter);
   }
 
@@ -17,9 +15,7 @@ public class EnableShooter extends Command {
 
   @Override
   protected void execute() {
-    Robot.index.indexIn(0.8);
-    Robot.shooter.shootBall(-0.55);
-    Robot.elevator.elevatorUp(1.0);
+    Robot.shooter.shootBall(-0.8);
   }
 
   @Override
@@ -29,9 +25,6 @@ public class EnableShooter extends Command {
 
   @Override
   protected void end() {
-    Robot.index.indexIn(0);
-    Robot.shooter.shootBall(0);
-    Robot.elevator.elevatorUp(0);
   }
 
   @Override
