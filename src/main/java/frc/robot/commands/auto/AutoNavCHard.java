@@ -7,21 +7,21 @@ import frc.robot.RobotMap;
 
 public class AutoNavCHard extends CommandGroup {
     private final double speed = 0.4;
-    private final double DISTANCE_MULTIPLIER = 1.0;
+    private final double DISTANCE_MULTIPLIER = .667;
 
     public AutoNavCHard() {
         requires(Robot.driveTrain);
-        addSequential(new Drive(0, speed, 0), 2 * DISTANCE_MULTIPLIER);
-        addSequential(new Drive(-Math.PI / 2, speed, 0), 2 * DISTANCE_MULTIPLIER);
-        addSequential(new Drive(Math.PI / 2, speed, 0), 2 * DISTANCE_MULTIPLIER);
+        addSequential(new Drive(0, speed, 0), 2.5 * DISTANCE_MULTIPLIER);
+        addSequential(new Drive(Math.PI / 2, speed, 0), 2 * DISTANCE_MULTIPLIER * 1.37);
+        addSequential(new Drive(-Math.PI / 2, speed, 0), 2 * DISTANCE_MULTIPLIER * 1.37);
         addSequential(new Drive(0, speed, 0), DISTANCE_MULTIPLIER);
-        addSequential(new Drive(Math.PI / 2, speed, 0), 2 * DISTANCE_MULTIPLIER);
+        addSequential(new Drive(-Math.PI / 2, speed, 0), 2 * DISTANCE_MULTIPLIER * 1.37);
         addSequential(new Drive(0, speed, 0), 2 * DISTANCE_MULTIPLIER);
-        addSequential(new Drive(-Math.PI / 2, speed, 0), 4 * DISTANCE_MULTIPLIER);
-        addSequential(new Drive(Math.PI / 2, speed, 0), 4 * DISTANCE_MULTIPLIER);
+        addSequential(new Drive(Math.PI / 2, speed, 0), 4 * DISTANCE_MULTIPLIER * 1.37);
+        addSequential(new Drive(-Math.PI / 2, speed, 0), 4 * DISTANCE_MULTIPLIER * 1.37);
         addSequential(new Drive(0, speed, 0), 3 * DISTANCE_MULTIPLIER);
-        addSequential(new Drive(-Math.PI / 2, speed, 0), 4 * DISTANCE_MULTIPLIER);
-        addSequential(new Drive(Math.PI / 2, speed, 0), 2 * DISTANCE_MULTIPLIER);
+        addSequential(new Drive(Math.PI / 2, speed, 0), 4 * DISTANCE_MULTIPLIER * 1.37);
+        addSequential(new Drive(-Math.PI / 2, speed, 0), 2 * DISTANCE_MULTIPLIER * 1.37);
         addSequential(new Drive(0, speed, 0), 3 * DISTANCE_MULTIPLIER);
     }
 }
