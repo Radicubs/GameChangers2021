@@ -26,8 +26,8 @@ public class OI {
   public static Button bottomFour = new JoystickButton(buttonBoard, RobotMap.BOTTOM_BUTTON_FOUR);
 
   public OI() {
-    // aButton.whenPressed(new DriveToggle());
-    aButton.whenPressed(new IntakeToggle());
+    aButton.whenPressed(new DriveToggle());
+    // aButton.whenPressed(new IntakeToggle());
     xButton.whenPressed(new IndexToggle());
     yButton.whenPressed(new ShooterToggle());
     rbButton.whenPressed(new ResetGyro());

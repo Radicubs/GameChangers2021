@@ -15,7 +15,7 @@ public class WarmUpShooter extends Command {
 
   @Override
   protected void execute() {
-    Robot.shooter.shootBall(0.60 * -11500 / 0.55);
+    Robot.shooter.shootBall(0.55 * -11500 / 0.55);
   }
 
   @Override

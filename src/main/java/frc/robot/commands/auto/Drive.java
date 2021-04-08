@@ -46,8 +46,8 @@ public class Drive extends Command {
             // Robot.driveBase.drive(-0.1, 0.1);
             double x = Robot.limeLight.getTable().getEntry("tx").getDouble(0.0);
             System.out.println(Robot.limeLight.getTable().getEntry("tx").getDouble(0.0));
-            if (Math.abs(x) > 8) {
-                this.turn = (x / 120);
+            if (Math.abs(x) > 6) {
+                this.turn = ((x) / 180);
             }
         }
         double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;

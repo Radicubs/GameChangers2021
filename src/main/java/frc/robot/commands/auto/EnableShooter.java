@@ -19,7 +19,7 @@ public class EnableShooter extends Command {
   @Override
   protected void execute() {
     Robot.index.indexIn(0.8);
-    Robot.shooter.shootBall(0.60 * (Robot.limeLight.calculateDistance() * -11500 / 65) / 0.55);
+    Robot.shooter.shootBall(0.55 * (Robot.limeLight.calculateDistance() * -11500 / 65) / 0.55);
     Robot.elevator.elevatorUp(1.0);
   }
 
