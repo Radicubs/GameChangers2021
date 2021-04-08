@@ -6,7 +6,7 @@ import frc.robot.RobotMap;
 
 public class RunMecanum extends Command {
 
-  private static double driveMode = 0.3;
+  private static double driveMode = 0.4;
 
   public RunMecanum() {
     requires(Robot.driveTrain);
@@ -55,10 +55,10 @@ public class RunMecanum extends Command {
   }
 
   public static void changeDriveMode() {
-    if (driveMode == 0.3) {
+    if (driveMode == 0.4) {
       driveMode = 0.9;
     } else {
-      driveMode = 0.3;
+      driveMode = 0.4;
     }
   }
 
