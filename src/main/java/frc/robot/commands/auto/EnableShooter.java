@@ -9,6 +9,7 @@ public class EnableShooter extends Command {
     requires(Robot.elevator);
     requires(Robot.index);
     requires(Robot.shooter);
+    requires(Robot.limeLight);
   }
 
   @Override
@@ -18,7 +19,7 @@ public class EnableShooter extends Command {
   @Override
   protected void execute() {
     Robot.index.indexIn(0.8);
-    Robot.shooter.shootBall(-0.55);
+    Robot.shooter.shootBall(Robot.limeLight.calculateDistance() * -11500/65);
     Robot.elevator.elevatorUp(1.0);
   }
 

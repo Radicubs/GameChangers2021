@@ -20,7 +20,7 @@ public class Intake extends Subsystem {
   }
 
   public void takeIn(double speed) {
-    // System.out.println("Current draw for intake: " + intakeMotor.getOutputCurrent());
+    System.out.println("Current draw for intake: " + intakeMotor.getOutputCurrent());
     intakeMotor.set(speed);
   }
 
