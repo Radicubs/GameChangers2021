@@ -6,7 +6,7 @@ import frc.robot.RobotMap;
 
 public class RunMecanum extends Command {
 
-  private static double driveMode = 0.4;
+  private static double driveMode = 0.6;
 
   public RunMecanum() {
     requires(Robot.driveTrain);
@@ -29,12 +29,17 @@ public class RunMecanum extends Command {
       turn *= driveMode / 2;
 
       double angle = Math.atan2(x, y);
+      System.out.println(angle);
       angle = angle != Double.NaN ? angle : 0;
 
       angle += ((Robot.ahrs.getAngle() - Robot.init_angle) / (180)) * Math.PI;
 
       double magnitude = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
       magnitude = magnitude < 1 ? magnitude : 1;
+
+      if (turn < 0.05) {
+        turn -= ((Robot.ahrs.getAngle() - Robot.init_angle) / (180));
+      }
 
       double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
       double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
@@ -55,10 +60,10 @@ public class RunMecanum extends Command {
   }
 
   public static void changeDriveMode() {
-    if (driveMode == 0.4) {
+    if (driveMode == 0.6) {
       driveMode = 0.9;
     } else {
-      driveMode = 0.4;
+      driveMode = 0.6;
     }
   }
 

@@ -116,7 +116,7 @@ public class Robot extends TimedRobot {
     // colorEntry = table.getEntry("color").getString("");
 
     // autonomous = new GalacticSearch(pathEntry, colorEntry);
-    autonomous = new AutoNavCHard();
+    autonomous = new AutoNavBHard();
     autonomous.start();
 
     // System.out.println("meow");
