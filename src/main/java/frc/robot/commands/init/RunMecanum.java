@@ -6,7 +6,7 @@ import frc.robot.RobotMap;
 
 public class RunMecanum extends Command {
 
-  private static double driveMode = 0.5;
+  private static double driveMode = 0.3;
 
   public RunMecanum() {
     requires(Robot.driveTrain);
@@ -39,6 +39,15 @@ public class RunMecanum extends Command {
       double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
       double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
 
+      /*
+       * if ((Math.abs(speedRFLB - speedRBLF) / ((Math.abs(speedRBLF) +
+       * Math.abs(speedRFLB)) / 1.5)) < 1 && (Math.abs(speedRFLB - speedRBLF) /
+       * ((Math.abs(speedRBLF) + Math.abs(speedRFLB)) / 1.5)) > 0) { double factor =
+       * 0.6 (1 - (Math.abs(speedRFLB - speedRBLF) / ((Math.abs(speedRBLF) +
+       * Math.abs(speedRFLB)) / 1.5))) + 1; // System.out.println("Factor " + factor);
+       * speedRFLB *= factor; speedRBLF *= factor; }
+       */
+
       Robot.driveTrain.drive(speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn, -speedRFLB + turn);
     } catch (Exception e) {
       System.out.println("Got exception: " + e);
@@ -46,10 +55,10 @@ public class RunMecanum extends Command {
   }
 
   public static void changeDriveMode() {
-    if (driveMode == 0.5) {
+    if (driveMode == 0.3) {
       driveMode = 0.7;
     } else {
-      driveMode = 0.5;
+      driveMode = 0.3;
     }
   }
 

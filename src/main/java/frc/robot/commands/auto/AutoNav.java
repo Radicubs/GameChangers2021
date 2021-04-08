@@ -157,9 +157,9 @@ public class AutoNav extends Command {
     protected void execute() {
         try {
             if (previousPair == null) {
-                previousPair = points.remove();
+                previousPair = points.poll();
             }
-            currentPair = points.remove();
+            currentPair = points.poll();
 
             double x = currentPair.getX() - previousPair.getX();
             // x *= 1.37;

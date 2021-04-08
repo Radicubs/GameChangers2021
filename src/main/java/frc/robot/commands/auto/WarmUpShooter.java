@@ -3,9 +3,9 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class AutoShooter extends Command {
+public class WarmUpShooter extends Command {
 
-  public AutoShooter() {
+  public WarmUpShooter() {
     requires(Robot.shooter);
   }
 
@@ -15,7 +15,7 @@ public class AutoShooter extends Command {
 
   @Override
   protected void execute() {
-    Robot.shooter.shootBall(0.8 * -11500 / 0.55);
+    Robot.shooter.shootBall(0.60 * -11500 / 0.55);
   }
 
   @Override
