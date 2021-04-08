@@ -22,7 +22,7 @@ public class Elevator extends Subsystem {
   }
 
   public void elevatorUp(double speed) {
-    elevatorBack.set(-speed);
+    elevatorBack.set(-0.75);
     // System.out.println("Back current: " + elevatorBack.getOutputCurrent());
     // System.out.println("Back voltage: " + elevatorBack.getVoltageCompensationNominalVoltage());
 
