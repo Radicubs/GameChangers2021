@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     // System.out.println("Angle");
     // System.out.println((ahrs.getAngle() - init_angle) % 360);
-    System.out.println(Robot.limeLight.calculateDistance());
+    System.out.println(Robot.limeLight.calculateDistance() * -11500 / 65);
   }
 
   @Override
@@ -119,9 +119,9 @@ public class Robot extends TimedRobot {
     autonomous = new AutoNav("Slalom");
     autonomous.start();
 
-    System.out.println("meow");
-    autonomous = new GalacticSearch("B", "red");
-    autonomous.start();
+    // System.out.println("meow");
+    // autonomous = new GalacticSearch("B", "red");
+    // autonomous.start();
   }
 
   /** This function is called periodically during autonomous. */
