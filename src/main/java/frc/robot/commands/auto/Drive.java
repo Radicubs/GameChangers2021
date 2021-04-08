@@ -28,32 +28,60 @@ public class Drive extends Command {
 
     @Override
     public boolean isFinished() {
-        return (Math.abs(this.magnitude) < 0.10);
+        // if (limelight) {
+        // return (Math.abs(this.magnitude) < 0.10);
+        // } else {
+        return false;
+        // }
     }
 
     @Override
+    /*
+     * public void execute() { if (limelight) { if
+     * (Robot.limeLight.calculateDistance() > 10) { this.magnitude =
+     * -(Robot.limeLight.calculateDistance() - 65) / 35; if
+     * (Math.abs(this.magnitude) < 0.1) { this.magnitude = -0.1; }
+     * System.out.println(this.magnitude); this.angle = 0; } // Drive! //
+     * Robot.driveBase.drive(-0.1, 0.1); double x =
+     * Robot.limeLight.getTable().getEntry("tx").getDouble(0.0);
+     * System.out.println(Robot.limeLight.getTable().getEntry("tx").getDouble(0.0));
+     * if (Math.abs(x) > 6) { this.turn = ((x) / 180); } } double speedRFLB =
+     * Math.sin(angle + (Math.PI / 4)) * magnitude; double speedRBLF =
+     * Math.sin(angle - (Math.PI / 4)) * magnitude; // if (turn < 0.05) { // turn -=
+     * ((Robot.ahrs.getAngle() - Robot.init_angle) / (180)); // }
+     * 
+     * Robot.driveTrain.drive(speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn,
+     * -speedRFLB + turn); }
+     */
     public void execute() {
-        if (limelight) {
-            if (Robot.limeLight.calculateDistance() > 10) {
-                this.magnitude = -(Robot.limeLight.calculateDistance() - 65) / 35;
-                if (Math.abs(this.magnitude) < 0.1) {
-                    this.magnitude = -0.1;
-                }
-                System.out.println(this.magnitude);
-                this.angle = 0;
-            }
-            // Drive!
-            // Robot.driveBase.drive(-0.1, 0.1);
-            double x = Robot.limeLight.getTable().getEntry("tx").getDouble(0.0);
-            System.out.println(Robot.limeLight.getTable().getEntry("tx").getDouble(0.0));
-            if (Math.abs(x) > 6) {
-                this.turn = ((x) / 180);
-            }
-        }
-        double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
-        double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
+        try {
+            double turn = 0;
 
-        Robot.driveTrain.drive(speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn, -speedRFLB + turn);
+            turn *= 0.5 / 2;
+
+            double angle_offset = ((Robot.ahrs.getAngle() - Robot.init_angle) / (180)) * Math.PI;
+
+            if (turn < 0.05) {
+                turn -= ((Robot.ahrs.getAngle() - Robot.init_angle) / (180));
+            }
+
+            double speedRFLB = Math.sin(angle + angle_offset + (Math.PI / 4)) * magnitude;
+            double speedRBLF = Math.sin(angle + angle_offset - (Math.PI / 4)) * magnitude;
+
+            /*
+             * if ((Math.abs(speedRFLB - speedRBLF) / ((Math.abs(speedRBLF) +
+             * Math.abs(speedRFLB)) / 1.5)) < 1 && (Math.abs(speedRFLB - speedRBLF) /
+             * ((Math.abs(speedRBLF) + Math.abs(speedRFLB)) / 1.5)) > 0) { double factor =
+             * 0.6 (1 - (Math.abs(speedRFLB - speedRBLF) / ((Math.abs(speedRBLF) +
+             * Math.abs(speedRFLB)) / 1.5))) + 1; // System.out.println("Factor " + factor);
+             * speedRFLB *= factor; speedRBLF *= factor; }
+             */
+            System.out.println("Speed: " + speedRBLF);
+
+            Robot.driveTrain.drive(speedRFLB + turn, -speedRBLF + turn, speedRBLF + turn, -speedRFLB + turn);
+        } catch (Exception e) {
+            System.out.println("Got exception: " + e);
+        }
     }
 
     @Override
