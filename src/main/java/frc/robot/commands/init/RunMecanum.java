@@ -37,9 +37,10 @@ public class RunMecanum extends Command {
       double magnitude = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
       magnitude = magnitude < 1 ? magnitude : 1;
 
-      if (turn < 0.05) {
-        turn -= ((Robot.ahrs.getAngle() - Robot.init_angle) / (180));
-      }
+      // JANK DRIVE, SECRET WEAPON
+      // if (turn < 0.05) {
+      //  turn -= ((Robot.ahrs.getAngle() - Robot.init_angle) / (180));
+      // }
 
       double speedRFLB = Math.sin(angle + (Math.PI / 4)) * magnitude;
       double speedRBLF = Math.sin(angle - (Math.PI / 4)) * magnitude;
